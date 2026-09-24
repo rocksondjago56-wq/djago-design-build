@@ -159,6 +159,30 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
               Home
             </button>
 
+            {/* ABOUT */}
+            <button
+              onClick={() => handleNavigate('about')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                currentPage === 'about'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              About
+            </button>
+
+            {/* SECTORS */}
+            <button
+              onClick={() => handleNavigate('sectors')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                currentPage === 'sectors'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              Sectors
+            </button>
+
             {/* WORK WITH DROPDOWN */}
             <div
               ref={dropdownRef}
@@ -236,30 +260,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
                 </div>
               )}
             </div>
-
-            {/* ABOUT */}
-            <button
-              onClick={() => handleNavigate('about')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                currentPage === 'about'
-                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
-              }`}
-            >
-              About
-            </button>
-
-            {/* SECTORS */}
-            <button
-              onClick={() => handleNavigate('sectors')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                currentPage === 'sectors'
-                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
-              }`}
-            >
-              Sectors
-            </button>
 
             {/* SERVICES */}
             <button
@@ -353,6 +353,32 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
               <ChevronRight className="w-4 h-4 text-slate-500" />
             </button>
 
+            {/* ABOUT */}
+            <button
+              onClick={() => handleNavigate('about')}
+              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                currentPage === 'about'
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
+              }`}
+            >
+              <span>About</span>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
+
+            {/* SECTORS */}
+            <button
+              onClick={() => handleNavigate('sectors')}
+              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                currentPage === 'sectors'
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
+              }`}
+            >
+              <span>Sectors</span>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
+
             {/* WORK ACCORDION ON MOBILE */}
             <div className="rounded-xl border border-slate-800/80 overflow-hidden bg-slate-900/50">
               <button
@@ -400,32 +426,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
                 </div>
               )}
             </div>
-
-            {/* ABOUT */}
-            <button
-              onClick={() => handleNavigate('about')}
-              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
-                currentPage === 'about'
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
-                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
-              }`}
-            >
-              <span>About</span>
-              <ChevronRight className="w-4 h-4 text-slate-500" />
-            </button>
-
-            {/* SECTORS */}
-            <button
-              onClick={() => handleNavigate('sectors')}
-              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
-                currentPage === 'sectors'
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
-                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
-              }`}
-            >
-              <span>Sectors</span>
-              <ChevronRight className="w-4 h-4 text-slate-500" />
-            </button>
 
             {/* SERVICES */}
             <button
