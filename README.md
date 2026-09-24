@@ -4,7 +4,7 @@
 > Ghana's premier integrated, multidisciplinary design & engineering firm.
 
 [![Live Site](https://img.shields.io/badge/Live%20Site-djago--design--build.vercel.app-amber?style=for-the-badge&logo=vercel)](https://djago-design-build.vercel.app)
-[![GitHub](https://img.shields.io/badge/GitHub-djago--design--build-181717?style=for-the-badge&logo=github)](https://github.com/djago-design-build/djago-design-build)
+[![GitHub](https://img.shields.io/badge/GitHub-djago--design--build-181717?style=for-the-badge&logo=github)](https://github.com/rocksondjago56-wq/djago-design-build)
 
 ---
 
