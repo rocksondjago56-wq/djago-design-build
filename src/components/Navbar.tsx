@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Logo } from './Logo';
 import { COMPANY_INFO } from '../data/content';
-import { Menu, X, Phone, Mail, ChevronRight, ArrowUpRight, FileText } from 'lucide-react';
+import { 
+  Menu, X, Phone, Mail, ChevronRight, ChevronDown, ArrowUpRight, 
+  FileText, ArrowLeftRight, Globe, GitBranch, LayoutGrid 
+} from 'lucide-react';
 import { PageId } from '../types/navigation';
 
 interface NavbarProps {
@@ -13,6 +16,10 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenBrochure }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [desktopWorkOpen, setDesktopWorkOpen] = useState(false);
+  const [mobileWorkExpanded, setMobileWorkExpanded] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,22 +29,66 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks: { label: string; page: PageId }[] = [
-    { label: 'Home', page: 'home' },
-    { label: 'About', page: 'about' },
-    { label: 'Sectors', page: 'sectors' },
-    { label: 'Disciplines', page: 'disciplines' },
-    { label: 'Work', page: 'work' },
-    { label: 'Before & After', page: 'transformations' },
-    { label: 'Ghana Map', page: 'map' },
-    { label: 'Workflow', page: 'workflow' },
-    { label: 'Contact', page: 'contact' },
-  ];
+  // Close desktop dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDesktopWorkOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-  const handleNavClick = (page: PageId) => {
+  const handleMouseEnterWork = () => {
+    if (dropdownTimerRef.current) clearTimeout(dropdownTimerRef.current);
+    setDesktopWorkOpen(true);
+  };
+
+  const handleMouseLeaveWork = () => {
+    dropdownTimerRef.current = setTimeout(() => {
+      setDesktopWorkOpen(false);
+    }, 150);
+  };
+
+  const isWorkActive = ['work', 'transformations', 'map', 'workflow'].includes(currentPage);
+
+  const handleNavigate = (page: PageId) => {
+    setDesktopWorkOpen(false);
     setMobileMenuOpen(false);
     navigateTo(page);
   };
+
+  const workSubmenuItems = [
+    {
+      page: 'transformations' as PageId,
+      label: 'Before & After',
+      desc: 'Interactive transformation sliders & renovation studies',
+      icon: ArrowLeftRight,
+      badge: 'Interactive'
+    },
+    {
+      page: 'map' as PageId,
+      label: 'Ghana Map',
+      desc: 'Architectural footprint across 8 major cities',
+      icon: Globe,
+      badge: 'National'
+    },
+    {
+      page: 'workflow' as PageId,
+      label: 'Workflow',
+      desc: '6-stage design & construction methodology',
+      icon: GitBranch,
+      badge: 'Process'
+    },
+    {
+      page: 'work' as PageId,
+      label: 'All Portfolio Works',
+      desc: 'Filterable commercial, residential & civic archives',
+      icon: LayoutGrid,
+      badge: 'Archive'
+    }
+  ];
 
   return (
     <>
@@ -84,9 +135,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo - Navigates to Home */}
+          
+          {/* Logo */}
           <button
-            onClick={() => handleNavClick('home')}
+            onClick={() => handleNavigate('home')}
             className="outline-none cursor-pointer flex items-center text-left"
             aria-label="DJAGO Home"
           >
@@ -94,24 +146,144 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
           </button>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80">
-            {navLinks.map((link) => {
-              const isActive = currentPage === link.page;
-              return (
-                <button
-                  key={link.page}
-                  onClick={() => handleNavClick(link.page)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
-                  }`}
-                  aria-current={isActive ? 'page' : undefined}
+          <nav className="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80">
+            {/* HOME */}
+            <button
+              onClick={() => handleNavigate('home')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                currentPage === 'home'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              Home
+            </button>
+
+            {/* WORK WITH DROPDOWN */}
+            <div
+              ref={dropdownRef}
+              onMouseEnter={handleMouseEnterWork}
+              onMouseLeave={handleMouseLeaveWork}
+              className="relative"
+            >
+              <button
+                onClick={() => setDesktopWorkOpen(!desktopWorkOpen)}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                  isWorkActive
+                    ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                }`}
+                aria-haspopup="true"
+                aria-expanded={desktopWorkOpen}
+              >
+                <span>Work</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${desktopWorkOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Architectural Minimal Dropdown Panel */}
+              {desktopWorkOpen && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-80 rounded-2xl bg-[#0f131a]/98 backdrop-blur-2xl border border-slate-800 shadow-2xl p-2 z-50 animate-scale-in"
+                  style={{ transformOrigin: 'top left' }}
                 >
-                  {link.label}
-                </button>
-              );
-            })}
+                  {/* Subtle Top Architectural Accent Bar */}
+                  <div className="px-3 pt-2 pb-1 text-[10px] font-bold font-['Space_Grotesk'] uppercase tracking-widest text-slate-500 flex items-center justify-between border-b border-slate-800/80 mb-1.5">
+                    <span>PORTFOLIO SECTIONS</span>
+                    <span className="text-amber-500 font-mono">01 - 04</span>
+                  </div>
+
+                  <div className="space-y-1">
+                    {workSubmenuItems.map((item) => {
+                      const isSubActive = currentPage === item.page;
+                      const Icon = item.icon;
+                      return (
+                        <button
+                          key={item.page}
+                          onClick={() => handleNavigate(item.page)}
+                          className={`w-full p-2.5 rounded-xl text-left flex items-start gap-3 transition-all duration-200 cursor-pointer group ${
+                            isSubActive
+                              ? 'bg-amber-500/15 border border-amber-500/40 text-amber-300'
+                              : 'hover:bg-slate-900 border border-transparent text-slate-300 hover:text-white'
+                          }`}
+                        >
+                          <div className={`p-2 rounded-lg mt-0.5 transition-colors ${
+                            isSubActive
+                              ? 'bg-amber-500 text-slate-950 font-bold'
+                              : 'bg-slate-800/80 text-amber-400 group-hover:bg-amber-500/20 group-hover:text-amber-300'
+                          }`}>
+                            <Icon className="w-4 h-4" />
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-xs font-['Space_Grotesk'] uppercase tracking-wider text-white group-hover:text-amber-300 transition-colors">
+                                {item.label}
+                              </span>
+                              <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded ${
+                                isSubActive ? 'bg-amber-500/30 text-amber-300' : 'bg-slate-800 text-slate-400'
+                              }`}>
+                                {item.badge}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-400 truncate mt-0.5 leading-tight">
+                              {item.desc}
+                            </p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ABOUT */}
+            <button
+              onClick={() => handleNavigate('about')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                currentPage === 'about'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              About
+            </button>
+
+            {/* SECTORS */}
+            <button
+              onClick={() => handleNavigate('sectors')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                currentPage === 'sectors'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              Sectors
+            </button>
+
+            {/* SERVICES */}
+            <button
+              onClick={() => handleNavigate('disciplines')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                currentPage === 'disciplines'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              Services
+            </button>
+
+            {/* CONTACT */}
+            <button
+              onClick={() => handleNavigate('contact')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                currentPage === 'contact'
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              Contact
+            </button>
           </nav>
 
           {/* Action CTAs */}
@@ -127,7 +299,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
             )}
 
             <button
-              onClick={() => handleNavClick('contact')}
+              onClick={() => handleNavigate('contact')}
               className="relative group overflow-hidden rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 p-[1px] focus:outline-none cursor-pointer"
             >
               <span className={`flex items-center gap-1.5 px-4 py-2 rounded-[7px] font-['Space_Grotesk'] text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
@@ -142,7 +314,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
           </div>
 
           {/* Mobile Menu Toggle Button */}
-          <div className="xl:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
             {onOpenBrochure && (
               <button
                 onClick={onOpenBrochure}
@@ -164,27 +336,122 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu with Accordion */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/90 backdrop-blur-md xl:hidden flex flex-col pt-20 px-6 pb-8 border-b border-slate-800 overflow-y-auto">
-          <div className="flex flex-col gap-1.5 flex-1">
-            {navLinks.map((link) => {
-              const isActive = currentPage === link.page;
-              return (
-                <button
-                  key={link.page}
-                  onClick={() => handleNavClick(link.page)}
-                  className={`flex items-center justify-between p-3 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
-                    isActive
-                      ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold shadow-md'
-                      : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400 hover:bg-slate-800'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  <ChevronRight className={`w-4 h-4 ${isActive ? 'text-slate-950' : 'text-slate-500'}`} />
-                </button>
-              );
-            })}
+        <div className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl lg:hidden flex flex-col pt-20 px-6 pb-8 border-b border-slate-800 overflow-y-auto">
+          <div className="flex flex-col gap-2 flex-1">
+            {/* HOME */}
+            <button
+              onClick={() => handleNavigate('home')}
+              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                currentPage === 'home'
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
+              }`}
+            >
+              <span>Home</span>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
+
+            {/* WORK ACCORDION ON MOBILE */}
+            <div className="rounded-xl border border-slate-800/80 overflow-hidden bg-slate-900/50">
+              <button
+                onClick={() => setMobileWorkExpanded(!mobileWorkExpanded)}
+                className={`w-full flex items-center justify-between p-3.5 text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer ${
+                  isWorkActive
+                    ? 'bg-amber-500/20 text-amber-300 font-bold'
+                    : 'text-slate-200 hover:text-amber-400'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <span>Work</span>
+                  <span className="text-[10px] text-amber-400 font-mono px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
+                    {mobileWorkExpanded ? '−' : '+'}
+                  </span>
+                </div>
+                <span className="text-xs font-mono text-slate-400">
+                  {mobileWorkExpanded ? 'Hide' : 'Expand'}
+                </span>
+              </button>
+
+              {mobileWorkExpanded && (
+                <div className="p-2 space-y-1 bg-slate-950/80 border-t border-slate-800/60">
+                  {workSubmenuItems.map((sub) => {
+                    const isSubActive = currentPage === sub.page;
+                    const Icon = sub.icon;
+                    return (
+                      <button
+                        key={sub.page}
+                        onClick={() => handleNavigate(sub.page)}
+                        className={`w-full p-2.5 rounded-lg text-left flex items-center justify-between text-xs font-['Space_Grotesk'] transition-all ${
+                          isSubActive
+                            ? 'bg-amber-500 text-slate-950 font-bold'
+                            : 'text-slate-300 hover:bg-slate-900 hover:text-amber-300'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <Icon className="w-3.5 h-3.5 text-amber-400" />
+                          <span>&rarr; {sub.label}</span>
+                        </div>
+                        <span className="text-[10px] opacity-75">{sub.badge}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* ABOUT */}
+            <button
+              onClick={() => handleNavigate('about')}
+              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                currentPage === 'about'
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
+              }`}
+            >
+              <span>About</span>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
+
+            {/* SECTORS */}
+            <button
+              onClick={() => handleNavigate('sectors')}
+              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                currentPage === 'sectors'
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
+              }`}
+            >
+              <span>Sectors</span>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
+
+            {/* SERVICES */}
+            <button
+              onClick={() => handleNavigate('disciplines')}
+              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                currentPage === 'disciplines'
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
+              }`}
+            >
+              <span>Services</span>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
+
+            {/* CONTACT */}
+            <button
+              onClick={() => handleNavigate('contact')}
+              className={`flex items-center justify-between p-3.5 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                currentPage === 'contact'
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400'
+              }`}
+            >
+              <span>Contact</span>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
           </div>
 
           <div className="pt-4 border-t border-slate-800 flex flex-col gap-2.5 mt-4">
@@ -202,10 +469,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
             )}
 
             <button
-              onClick={() => handleNavClick('contact')}
+              onClick={() => handleNavigate('contact')}
               className="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-['Space_Grotesk'] text-xs tracking-wider uppercase rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
             >
-              <span>Navigate to Consultation Screen</span>
+              <span>Request Consultation</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
             <div className="text-center text-[11px] text-slate-500 mt-1">

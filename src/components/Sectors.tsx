@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { SECTORS } from '../data/content';
 import { Layers, ArrowRight, Building2, BookOpen, HeartPulse, Home, Users } from 'lucide-react';
 import { AnimatedSection } from './AnimatedSection';
+import { PageId } from '../types/navigation';
 
-export const Sectors: React.FC = () => {
+interface SectorsProps {
+  navigateTo?: (page: PageId, options?: { serviceId?: string }) => void;
+}
+
+export const Sectors: React.FC<SectorsProps> = ({ navigateTo }) => {
   const [activeSector, setActiveSector] = useState<string>(SECTORS[0].id);
 
   const sectorIcons = {
@@ -87,13 +92,13 @@ export const Sectors: React.FC = () => {
                   </p>
                 </div>
 
-                <a
-                  href="#portfolio"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-['Space_Grotesk'] text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-amber-500/20 hover:scale-105"
+                <button
+                  onClick={() => navigateTo?.('work')}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-['Space_Grotesk'] text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-amber-500/20 hover:scale-105 cursor-pointer"
                 >
                   <span>View {selectedSectorObj.name} Projects</span>
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </button>
               </div>
 
               <div className="lg:col-span-6">

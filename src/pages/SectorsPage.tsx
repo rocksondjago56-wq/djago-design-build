@@ -23,7 +23,7 @@ export const SectorsPage: React.FC<SectorsPageProps> = ({ navigateTo }) => {
       />
 
       {/* Main Sectors Showcase */}
-      <Sectors />
+      <Sectors navigateTo={navigateTo} />
 
       {/* Sector Commissioning Call-to-Action Screen */}
       <section className="py-16 bg-[#0a0c0f] border-t border-slate-800">

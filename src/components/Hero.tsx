@@ -215,10 +215,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
 
       {/* Subtle Scroll Down Prompt */}
       <div className="mt-12 text-center hidden md:block">
-        <a href="#about" className="inline-flex flex-col items-center gap-1 text-slate-500 hover:text-amber-400 text-xs transition-colors">
-          <span>Scroll to Discover DJAGO</span>
+        <button
+          onClick={onExploreServices}
+          className="inline-flex flex-col items-center gap-1 text-slate-500 hover:text-amber-400 text-xs transition-colors cursor-pointer"
+        >
+          <span>Discover DJAGO</span>
           <ChevronDown className="w-4 h-4 animate-bounce" />
-        </a>
+        </button>
       </div>
     </section>
   );
