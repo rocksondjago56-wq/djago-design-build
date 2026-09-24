@@ -3,9 +3,10 @@ import { Logo } from './Logo';
 import { COMPANY_INFO } from '../data/content';
 import { 
   Menu, X, Phone, Mail, ChevronRight, ChevronDown, ArrowUpRight, 
-  FileText, ArrowLeftRight, Globe, GitBranch, LayoutGrid 
+  FileText, ArrowLeftRight, Globe, GitBranch, LayoutGrid, Download 
 } from 'lucide-react';
 import { PageId } from '../types/navigation';
+import { usePWA } from '../pwa/usePWA';
 
 interface NavbarProps {
   currentPage: PageId;
@@ -14,6 +15,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenBrochure }) => {
+  const { isInstallable, isIOS, isInstalled, installApp } = usePWA();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [desktopWorkOpen, setDesktopWorkOpen] = useState(false);
@@ -298,6 +300,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
               </button>
             )}
 
+            {!isInstalled && (isInstallable || isIOS) && (
+              <button
+                onClick={installApp}
+                className="px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 text-amber-400 hover:text-amber-300 text-xs font-bold font-['Space_Grotesk'] tracking-wider uppercase flex items-center gap-1.5 transition-all cursor-pointer"
+                title="Install DJAGO Progressive Web App"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>App</span>
+              </button>
+            )}
+
             <button
               onClick={() => handleNavigate('contact')}
               className="relative group overflow-hidden rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 p-[1px] focus:outline-none cursor-pointer"
@@ -465,6 +478,19 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
               >
                 <FileText className="w-4 h-4 text-amber-400" />
                 <span>Download Capabilities Deck (PDF)</span>
+              </button>
+            )}
+
+            {!isInstalled && (isInstallable || isIOS) && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  installApp();
+                }}
+                className="w-full py-3 bg-amber-500/10 border border-amber-500/40 hover:bg-amber-500/20 text-amber-300 font-bold font-['Space_Grotesk'] text-xs tracking-wider uppercase rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all"
+              >
+                <Download className="w-4 h-4 text-amber-400" />
+                <span>Install DJAGO App</span>
               </button>
             )}
 

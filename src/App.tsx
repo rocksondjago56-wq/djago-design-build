@@ -3,6 +3,8 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { WhatsAppWidget } from './components/WhatsAppWidget';
 import { BrochureModal } from './components/BrochureModal';
+import { PWAInstallPrompt } from './components/PWAInstallPrompt';
+import { OfflineIndicator } from './components/OfflineIndicator';
 
 // Separate Page Screens
 import { HomePage } from './pages/HomePage';
@@ -169,6 +171,10 @@ export default function App() {
         isOpen={isBrochureOpen}
         onClose={() => setIsBrochureOpen(false)}
       />
+
+      {/* Progressive Web App Status & Install Prompts */}
+      <OfflineIndicator />
+      <PWAInstallPrompt />
     </div>
   );
 }

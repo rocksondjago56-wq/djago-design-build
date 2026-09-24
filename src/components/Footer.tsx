@@ -1,9 +1,10 @@
 import React from 'react';
 import { Logo } from './Logo';
 import { COMPANY_INFO } from '../data/content';
-import { Phone, Mail, MapPin, ArrowUpRight, FileText } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUpRight, FileText, Download } from 'lucide-react';
 import { PageId } from '../types/navigation';
 import { SocialIcons } from './SocialIcons';
+import { usePWA } from '../pwa/usePWA';
 
 interface FooterProps {
   navigateTo: (page: PageId, options?: { serviceId?: string }) => void;
@@ -11,6 +12,7 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ navigateTo, onOpenBrochure }) => {
+  const { isInstallable, isIOS, isInstalled, installApp } = usePWA();
   return (
     <footer className="bg-[#08090c] text-slate-400 border-t border-slate-800/80 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,8 +34,8 @@ export const Footer: React.FC<FooterProps> = ({ navigateTo, onOpenBrochure }) =>
             <div className="text-xs text-amber-400 font-['Space_Grotesk'] font-bold">
               {COMPANY_INFO.slogan}
             </div>
-            {onOpenBrochure && (
-              <div className="pt-2">
+            <div className="pt-2 flex flex-wrap gap-2">
+              {onOpenBrochure && (
                 <button
                   onClick={onOpenBrochure}
                   className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-amber-300 text-xs font-semibold font-['Space_Grotesk'] transition-all cursor-pointer"
@@ -41,8 +43,17 @@ export const Footer: React.FC<FooterProps> = ({ navigateTo, onOpenBrochure }) =>
                   <FileText className="w-3.5 h-3.5 text-amber-400" />
                   <span>Download Corporate Capabilities Deck</span>
                 </button>
-              </div>
-            )}
+              )}
+              {!isInstalled && (isInstallable || isIOS) && (
+                <button
+                  onClick={installApp}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500 text-amber-400 hover:text-amber-300 text-xs font-semibold font-['Space_Grotesk'] transition-all cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Install Web App</span>
+                </button>
+              )}
+            </div>
 
             {/* Social Media Icons */}
             <div className="pt-3">
