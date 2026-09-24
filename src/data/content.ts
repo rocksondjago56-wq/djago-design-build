@@ -283,22 +283,22 @@ export const TESTIMONIALS: TestimonialItem[] = [
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: 'Ing. Kwabena Djago',
-    role: 'Managing Partner & Principal Civil Engineer',
-    specialty: 'Structural BIM Engineering & Infrastructure',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80'
+    name: 'Rockson Djago',
+    role: 'Founder & Principal Engineer',
+    specialty: 'Structural Design, Civil Engineering & Brand Strategy',
+    image: ''
   },
   {
-    name: 'Abena Osei-Djago',
-    role: 'Partner & Creative Director',
-    specialty: 'Brand Identity, Environmental Graphics & Media',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=80'
+    name: 'DJAGO Creative Studio',
+    role: 'Creative Design Division',
+    specialty: 'Brand Identity, Environmental Graphics & Visual Media',
+    image: ''
   },
   {
-    name: 'Emmanuel Ampofo',
-    role: 'Director of Interior Architecture',
-    specialty: 'Spatial Workplace Strategy & Custom Furnishings',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80'
+    name: 'DJAGO Interiors',
+    role: 'Interior Architecture Division',
+    specialty: 'Spatial Strategy, Custom Fit-Outs & Luxury Finishing',
+    image: ''
   }
 ];
 

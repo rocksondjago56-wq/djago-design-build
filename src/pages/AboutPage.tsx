@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { About } from '../components/About';
+import { Testimonials } from '../components/Testimonials';
 import { PageId } from '../types/navigation';
 import { Sparkles, ArrowRight, Building2, ShieldCheck, Award, FileText } from 'lucide-react';
 import { AnimatedSection } from '../components/AnimatedSection';
@@ -25,6 +26,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ navigateTo, onOpenBrochure
 
       {/* Main About Component Content */}
       <About />
+
+      {/* Client Endorsements & Team */}
+      <Testimonials />
 
       {/* Page Action Screen Banner */}
       <section className="py-16 bg-[#0a0c0f] border-t border-slate-800">
