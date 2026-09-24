@@ -59,7 +59,7 @@ export const COMPANY_INFO = {
     { label: 'Integrated Projects', value: '10+' },
     { label: 'Years of Synergy', value: '3+' },
     { label: 'Multidisciplinary Experts', value: '35+' },
-    { label: 'Client Satisfaction', value: '99%' },
+    { label: 'Client Satisfaction', value: '90%' },
   ]
 };
 
