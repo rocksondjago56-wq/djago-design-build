@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SERVICES, COMPANY_INFO } from '../data/content';
 import { ArrowRight, ShieldCheck, CheckCircle2, Building2, Paintbrush, Compass, Sparkles, ChevronDown } from 'lucide-react';
+import { AnimatedCounter } from './AnimatedCounter';
 
 interface HeroProps {
   onOpenConsultation: (serviceId?: string) => void;
@@ -25,14 +26,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f242d_1px,transparent_1px),linear-gradient(to_bottom,#1f242d_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-30" />
       
       {/* Radiant Accent Gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-amber-500/10 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-yellow-600/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-amber-500/10 blur-[140px] rounded-full pointer-events-none animate-pulse-glow" />
+      <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-yellow-600/10 blur-[120px] rounded-full pointer-events-none animate-float-slow" />
+      <div className="absolute bottom-10 left-10 w-[240px] h-[240px] bg-amber-600/10 blur-[100px] rounded-full pointer-events-none animate-float-delayed" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
         
         {/* Top Eyebrow Tag */}
         <div className="flex justify-center md:justify-start mb-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/30 text-amber-400 text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-widest backdrop-blur-md shadow-lg shadow-black/40">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/30 text-amber-400 text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-widest backdrop-blur-md shadow-lg shadow-black/40 animate-float">
             <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin-slow" />
             <span>Integrated Multidisciplinary Enterprise • Ghana</span>
           </div>
@@ -43,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
           
           <div className="lg:col-span-7 text-center md:text-left">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white font-['Syne'] tracking-tight leading-[1.08]">
-              Your Vision <span className="text-amber-400 font-extrabold relative inline-block">
+              Your Vision <span className="text-amber-400 font-extrabold relative inline-block animate-pulse">
                 •
               </span> <br />
               <span className="bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent">
@@ -57,15 +59,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
 
             {/* Three Pillars Pill Chips */}
             <div className="mt-8 flex flex-wrap gap-2.5 justify-center md:justify-start">
-              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-amber-300 text-xs font-semibold font-['Space_Grotesk'] flex items-center gap-2">
+              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 hover:border-amber-500/50 hover:bg-slate-800 text-amber-300 text-xs font-semibold font-['Space_Grotesk'] flex items-center gap-2 transition-all duration-300 hover:scale-105">
                 <Paintbrush className="w-3.5 h-3.5 text-amber-400" />
                 Graphic Design & Branding
               </span>
-              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-amber-300 text-xs font-semibold font-['Space_Grotesk'] flex items-center gap-2">
+              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 hover:border-amber-500/50 hover:bg-slate-800 text-amber-300 text-xs font-semibold font-['Space_Grotesk'] flex items-center gap-2 transition-all duration-300 hover:scale-105">
                 <Building2 className="w-3.5 h-3.5 text-amber-400" />
                 Civil Engineering
               </span>
-              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-amber-300 text-xs font-semibold font-['Space_Grotesk'] flex items-center gap-2">
+              <span className="px-3.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700/80 hover:border-amber-500/50 hover:bg-slate-800 text-amber-300 text-xs font-semibold font-['Space_Grotesk'] flex items-center gap-2 transition-all duration-300 hover:scale-105">
                 <Compass className="w-3.5 h-3.5 text-amber-400" />
                 Interior Design
               </span>
@@ -75,26 +77,26 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
             <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
               <button
                 onClick={() => onOpenConsultation()}
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold font-['Space_Grotesk'] text-sm tracking-wider uppercase rounded-xl transition-all duration-300 shadow-xl shadow-amber-500/20 flex items-center justify-center gap-3 group"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold font-['Space_Grotesk'] text-sm tracking-wider uppercase rounded-xl transition-all duration-300 shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 flex items-center justify-center gap-3 group hover:scale-[1.02]"
               >
                 <span>Book Free Project Audit</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
               </button>
 
               <button
                 onClick={onExploreServices}
-                className="w-full sm:w-auto px-8 py-4 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 font-semibold font-['Space_Grotesk'] text-sm tracking-wider uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 hover:border-amber-500/40 font-semibold font-['Space_Grotesk'] text-sm tracking-wider uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02]"
               >
                 <span>Explore Disciplines</span>
               </button>
             </div>
 
-            {/* Trust Badges */}
+            {/* Trust Badges with Animated Counters */}
             <div className="mt-12 pt-8 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center md:text-left">
               {COMPANY_INFO.stats.map((stat, idx) => (
                 <div key={idx} className="space-y-1">
                   <div className="text-2xl sm:text-3xl font-extrabold text-white font-['Syne']">
-                    {stat.value}
+                    <AnimatedCounter value={stat.value} />
                   </div>
                   <div className="text-xs text-slate-400 font-medium leading-tight">
                     {stat.label}
@@ -132,6 +134,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
 
               {/* Dynamic Service Preview Card */}
               <div className="relative h-96 sm:h-[420px] rounded-xl overflow-hidden group">
+                {/* Floating trust badge */}
+                <div className="absolute top-4 right-4 z-20 px-3 py-1.5 rounded-lg bg-slate-950/85 border border-amber-500/40 text-amber-300 text-[11px] font-semibold font-['Space_Grotesk'] backdrop-blur-md shadow-xl flex items-center gap-1.5 animate-float-delayed pointer-events-none">
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Turnkey Standard</span>
+                </div>
+
                 <img
                   src={SERVICES[activeTab].image}
                   alt={SERVICES[activeTab].title}
