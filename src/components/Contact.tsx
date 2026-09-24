@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { COMPANY_INFO } from '../data/content';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, Building2 } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, Building2, Loader2, AlertTriangle } from 'lucide-react';
 import { AnimatedSection } from './AnimatedSection';
 
 interface ContactProps {
   initialServiceId?: string;
+}
+
+interface ApiResponse {
+  success: boolean;
+  message?: string;
+  inquiryId?: string;
+  whatsappUrl?: string;
+  error?: string;
+  details?: Record<string, string>;
 }
 
 export const Contact: React.FC<ContactProps> = ({ initialServiceId }) => {
@@ -16,13 +25,50 @@ export const Contact: React.FC<ContactProps> = ({ initialServiceId }) => {
     projectLocation: 'Accra, Ghana',
     budgetRange: '$10,000 - $50,000',
     message: '',
+    botField: '', // Honeypot for spam bots — hidden from humans
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [successData, setSuccessData] = useState<{ inquiryId: string; whatsappUrl?: string } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setApiError(null);
+    setFieldErrors({});
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data: ApiResponse = await response.json();
+
+      if (!response.ok || !data.success) {
+        if (data.details) {
+          setFieldErrors(data.details);
+        }
+        setApiError(data.error || 'Something went wrong. Please try again.');
+        setIsLoading(false);
+        return;
+      }
+
+      setSuccessData({
+        inquiryId: data.inquiryId || 'DJG-RECEIVED',
+        whatsappUrl: data.whatsappUrl,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error('[DJAGO Contact] Network error:', err);
+      setApiError('Unable to reach our servers. Please check your connection or contact us directly via WhatsApp.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -123,8 +169,8 @@ export const Contact: React.FC<ContactProps> = ({ initialServiceId }) => {
           <div className="lg:col-span-7">
             <AnimatedSection direction="left" delay={150}>
               <div className="p-8 sm:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-2xl relative glass-card">
-                {submitted ? (
-                  <div className="text-center py-16 space-y-4 animate-fade-in">
+                {submitted && successData ? (
+                  <div className="text-center py-12 space-y-4 animate-fade-in">
                     <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500 text-amber-400 flex items-center justify-center mx-auto shadow-lg shadow-amber-500/20 animate-bounce">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
@@ -132,20 +178,55 @@ export const Contact: React.FC<ContactProps> = ({ initialServiceId }) => {
                       Consultation Request Received!
                     </h3>
                     <p className="text-sm text-slate-300 max-w-md mx-auto">
-                      Thank you for reaching out to <strong>DJAGO Design & Build</strong>. One of our lead project engineers or brand directors will review your specs and contact you within 24 hours.
+                      Thank you for reaching out to <strong>DJAGO Design &amp; Build</strong>. One of our lead project engineers or brand directors will contact you within 24 hours.
                     </p>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 font-['Space_Grotesk'] text-xs font-bold tracking-widest mx-auto">
+                      <span>Reference:</span>
+                      <span className="text-white">{successData.inquiryId}</span>
+                    </div>
+                    {successData.whatsappUrl && (
+                      <a
+                        href={successData.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/40 hover:bg-emerald-600/30 text-emerald-300 font-bold font-['Space_Grotesk'] text-xs uppercase tracking-wider transition-all cursor-pointer"
+                      >
+                        <Send className="w-4 h-4" />
+                        Follow Up on WhatsApp
+                      </a>
+                    )}
                     <button
-                      onClick={() => setSubmitted(false)}
-                      className="mt-6 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold font-['Space_Grotesk'] text-xs uppercase tracking-wider rounded-xl transition-all"
+                      onClick={() => { setSubmitted(false); setSuccessData(null); }}
+                      className="block mx-auto mt-4 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold font-['Space_Grotesk'] text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer"
                     >
                       Submit Another Inquiry
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Hidden honeypot field — must stay invisible to users */}
+                    <input
+                      type="text"
+                      name="botField"
+                      value={formData.botField}
+                      onChange={(e) => setFormData({ ...formData, botField: e.target.value })}
+                      style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      autoComplete="off"
+                    />
+
                     <h3 className="text-xl font-bold text-white font-['Syne'] mb-2">
-                      Request Project Quotation & Feasibility
+                      Request Project Quotation &amp; Feasibility
                     </h3>
+
+                    {/* API Error Banner */}
+                    {apiError && (
+                      <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/40 text-red-400 text-xs">
+                        <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+                        <p>{apiError}</p>
+                      </div>
+                    )}
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -158,8 +239,9 @@ export const Contact: React.FC<ContactProps> = ({ initialServiceId }) => {
                           placeholder="e.g. Kwame Mensah"
                           value={formData.fullName}
                           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-amber-500 transition-colors"
+                          className={`w-full px-4 py-3 rounded-xl bg-slate-950 border text-white text-xs focus:outline-none focus:border-amber-500 transition-colors ${fieldErrors.fullName ? 'border-red-500' : 'border-slate-800'}`}
                         />
+                        {fieldErrors.fullName && <p className="text-red-400 text-[11px] mt-1">{fieldErrors.fullName}</p>}
                       </div>
 
                       <div>
@@ -242,7 +324,7 @@ export const Contact: React.FC<ContactProps> = ({ initialServiceId }) => {
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 font-['Space_Grotesk'] mb-2">
-                        Project Details & Requirements *
+                        Project Details &amp; Requirements *
                       </label>
                       <textarea
                         required
@@ -250,16 +332,27 @@ export const Contact: React.FC<ContactProps> = ({ initialServiceId }) => {
                         placeholder="Describe your vision, timeline, specific requirements, or site specifications..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-amber-500 transition-colors"
+                        className={`w-full px-4 py-3 rounded-xl bg-slate-950 border text-white text-xs focus:outline-none focus:border-amber-500 transition-colors ${fieldErrors.message ? 'border-red-500' : 'border-slate-800'}`}
                       />
+                      {fieldErrors.message && <p className="text-red-400 text-[11px] mt-1">{fieldErrors.message}</p>}
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold font-['Space_Grotesk'] text-xs tracking-wider uppercase rounded-xl transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 group hover:scale-[1.01]"
+                      disabled={isLoading}
+                      className="w-full py-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 disabled:opacity-70 disabled:cursor-not-allowed text-slate-950 font-bold font-['Space_Grotesk'] text-xs tracking-wider uppercase rounded-xl transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 group hover:scale-[1.01] cursor-pointer"
                     >
-                      <span>Submit Proposal Request</span>
-                      <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Dispatching Inquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Submit Proposal Request</span>
+                          <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </>
+                      )}
                     </button>
                   </form>
                 )}
