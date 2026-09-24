@@ -51,10 +51,9 @@ export const COMPANY_INFO = {
   email: 'info@djagodesignbuild.com',
   workingHours: 'Mon - Fri: 8:00 AM - 5:00 PM GMT',
   social: [
-    { label: 'Instagram', handle: '@djago_designbuild', url: 'https://instagram.com/djago_designbuild', icon: 'instagram' },
-    { label: 'Facebook', handle: 'DJAGO Design & Build', url: 'https://facebook.com/djagodesignbuild', icon: 'facebook' },
-    { label: 'LinkedIn', handle: 'DJAGO Design & Build', url: 'https://linkedin.com/company/djago-design-build', icon: 'linkedin' },
-    { label: 'TikTok', handle: '@djago.build', url: 'https://tiktok.com/@djago.build', icon: 'tiktok' },
+    { label: 'Instagram', handle: '@mr.djago', url: 'https://www.instagram.com/mr.djago', icon: 'instagram' },
+    { label: 'TikTok', handle: '@rocksonadebi', url: 'https://www.tiktok.com/@rocksonadebi', icon: 'tiktok' },
+    { label: 'LinkedIn', handle: 'Rockson Djago', url: 'https://www.linkedin.com/in/rockson-djago-204969425', icon: 'linkedin' },
   ],
   stats: [
     { label: 'Integrated Projects', value: '180+' },
