@@ -63,14 +63,27 @@ DJAGO/
 │   └── og-image.svg            # 1200x630 Open Graph social share banner
 └── src/
     ├── main.tsx                # React entry point
-    ├── App.tsx                 # Root component with scroll tracking
+    ├── App.tsx                 # Root router rendering separate screens & persistent shell
     ├── index.css               # Global CSS, Tailwind v4, custom animations
+    ├── types/
+    │   └── navigation.ts       # PageId types and navigation interfaces
     ├── data/
     │   └── content.ts          # All site content (services, projects, team)
+    ├── pages/                  # Separate Dedicated Screen Views
+    │   ├── HomePage.tsx        # Hero, Highlights & Teasers Screen
+    │   ├── AboutPage.tsx       # Practice Story, Leadership & Philosophy Screen
+    │   ├── SectorsPage.tsx     # Market Typologies & Sectors Screen
+    │   ├── DisciplinesPage.tsx # 3 Pillars (Design, Civil, Interiors) Screen
+    │   ├── WorkPage.tsx        # Filterable Portfolio & Modal Screen
+    │   ├── TransformationsPage.tsx # Before & After Wipe Slider Screen
+    │   ├── MapPage.tsx         # Interactive Ghana Projects Map Screen
+    │   ├── WorkflowPage.tsx    # 4-Step Methodology & Testimonials Screen
+    │   └── ContactPage.tsx     # Quotation Form & Office Desk Screen
     └── components/
+        ├── PageHeader.tsx      # Consistent breadcrumb & header banner
         ├── AnimatedSection.tsx # Scroll-reveal IntersectionObserver HOC
         ├── AnimatedCounter.tsx # easeOutExpo number counter component
-        ├── Navbar.tsx          # Sticky navigation with mobile menu & brochure action
+        ├── Navbar.tsx          # Navigation header with active screen indicator
         ├── Hero.tsx            # Hero section with service carousel & CTA buttons
         ├── About.tsx           # Company philosophy & pillars
         ├── Sectors.tsx         # Market sector showcase with tabs
@@ -83,7 +96,7 @@ DJAGO/
         ├── Contact.tsx         # Consultation quotation form
         ├── WhatsAppWidget.tsx  # Floating WhatsApp direct-chat desk
         ├── BrochureModal.tsx   # Corporate profile download modal
-        ├── Footer.tsx          # Site footer with links
+        ├── Footer.tsx          # Site footer with direct screen links
         └── Logo.tsx            # DJAGO brand logo component
 ```
 

@@ -2,36 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
 import { COMPANY_INFO } from '../data/content';
 import { Menu, X, Phone, Mail, ChevronRight, ArrowUpRight, FileText } from 'lucide-react';
+import { PageId } from '../types/navigation';
 
 interface NavbarProps {
-  onOpenConsultation: (serviceId?: string) => void;
+  currentPage: PageId;
+  navigateTo: (page: PageId, options?: { serviceId?: string }) => void;
   onOpenBrochure?: () => void;
-  activeSection: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onOpenBrochure, activeSection }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenBrochure }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Home', href: '#hero' },
-    { label: 'About', href: '#about' },
-    { label: 'Sectors', href: '#sectors' },
-    { label: 'Disciplines', href: '#services' },
-    { label: 'Work', href: '#portfolio' },
-    { label: 'Before & After', href: '#transformations' },
-    { label: 'Ghana Map', href: '#map' },
-    { label: 'Workflow', href: '#process' },
-    { label: 'Contact', href: '#contact' },
+  const navLinks: { label: string; page: PageId }[] = [
+    { label: 'Home', page: 'home' },
+    { label: 'About', page: 'about' },
+    { label: 'Sectors', page: 'sectors' },
+    { label: 'Disciplines', page: 'disciplines' },
+    { label: 'Work', page: 'work' },
+    { label: 'Before & After', page: 'transformations' },
+    { label: 'Ghana Map', page: 'map' },
+    { label: 'Workflow', page: 'workflow' },
+    { label: 'Contact', page: 'contact' },
   ];
+
+  const handleNavClick = (page: PageId) => {
+    setMobileMenuOpen(false);
+    navigateTo(page);
+  };
 
   return (
     <>
@@ -74,30 +80,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onOpenBrochu
         className={`sticky top-0 z-40 transition-all duration-300 ${
           scrolled
             ? 'bg-[#0d0f12]/95 backdrop-blur-md border-b border-slate-800/80 py-2.5 shadow-2xl shadow-black/50'
-            : 'bg-[#0d0f12]/75 backdrop-blur-sm py-4 border-b border-slate-800/40'
+            : 'bg-[#0d0f12]/80 backdrop-blur-sm py-4 border-b border-slate-800/40'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <a href="#hero" className="outline-none">
+          {/* Logo - Navigates to Home */}
+          <button
+            onClick={() => handleNavClick('home')}
+            className="outline-none cursor-pointer flex items-center text-left"
+            aria-label="DJAGO Home"
+          >
             <Logo size={scrolled ? 'sm' : 'md'} />
-          </a>
+          </button>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden xl:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
+              const isActive = currentPage === link.page;
               return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 ${
+                <button
+                  key={link.page}
+                  onClick={() => handleNavClick(link.page)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-bold'
+                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
                       : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
                   }`}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   {link.label}
-                </a>
+                </button>
               );
             })}
           </nav>
@@ -115,10 +127,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onOpenBrochu
             )}
 
             <button
-              onClick={() => onOpenConsultation()}
+              onClick={() => handleNavClick('contact')}
               className="relative group overflow-hidden rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 p-[1px] focus:outline-none cursor-pointer"
             >
-              <span className="flex items-center gap-1.5 px-4 py-2 rounded-[7px] bg-[#0d0f12] text-amber-400 font-['Space_Grotesk'] text-xs font-bold uppercase tracking-wider group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300">
+              <span className={`flex items-center gap-1.5 px-4 py-2 rounded-[7px] font-['Space_Grotesk'] text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                currentPage === 'contact'
+                  ? 'bg-amber-500 text-slate-950 shadow-md'
+                  : 'bg-[#0d0f12] text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950'
+              }`}>
                 <span>Consultation</span>
                 <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
@@ -139,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onOpenBrochu
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-slate-800/80 text-slate-200 hover:text-amber-400 focus:outline-none border border-slate-700"
+              className="p-2 rounded-lg bg-slate-800/80 text-slate-200 hover:text-amber-400 focus:outline-none border border-slate-700 cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -150,19 +166,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onOpenBrochu
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/85 backdrop-blur-md xl:hidden flex flex-col pt-20 px-6 pb-8 border-b border-slate-800 overflow-y-auto">
+        <div className="fixed inset-0 z-40 bg-black/90 backdrop-blur-md xl:hidden flex flex-col pt-20 px-6 pb-8 border-b border-slate-800 overflow-y-auto">
           <div className="flex flex-col gap-1.5 flex-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 text-slate-200 hover:text-amber-400 hover:bg-slate-800 text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase"
-              >
-                <span>{link.label}</span>
-                <ChevronRight className="w-4 h-4 text-slate-500" />
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = currentPage === link.page;
+              return (
+                <button
+                  key={link.page}
+                  onClick={() => handleNavClick(link.page)}
+                  className={`flex items-center justify-between p-3 rounded-xl border text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                    isActive
+                      ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold shadow-md'
+                      : 'bg-slate-900/80 border-slate-800/80 text-slate-200 hover:text-amber-400 hover:bg-slate-800'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  <ChevronRight className={`w-4 h-4 ${isActive ? 'text-slate-950' : 'text-slate-500'}`} />
+                </button>
+              );
+            })}
           </div>
 
           <div className="pt-4 border-t border-slate-800 flex flex-col gap-2.5 mt-4">
@@ -180,13 +202,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onOpenBrochu
             )}
 
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenConsultation();
-              }}
-              className="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-['Space_Grotesk'] text-xs tracking-wider uppercase rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+              onClick={() => handleNavClick('contact')}
+              className="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-['Space_Grotesk'] text-xs tracking-wider uppercase rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
             >
-              <span>Get Free Quote &amp; Project Audit</span>
+              <span>Navigate to Consultation Screen</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
             <div className="text-center text-[11px] text-slate-500 mt-1">

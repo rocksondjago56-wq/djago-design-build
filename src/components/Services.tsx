@@ -5,10 +5,11 @@ import { AnimatedSection } from './AnimatedSection';
 
 interface ServicesProps {
   onOpenConsultation: (serviceId?: string) => void;
+  initialServiceId?: string;
 }
 
-export const Services: React.FC<ServicesProps> = ({ onOpenConsultation }) => {
-  const [selectedService, setSelectedService] = useState<string>(SERVICES[0].id);
+export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, initialServiceId }) => {
+  const [selectedService, setSelectedService] = useState<string>(initialServiceId || SERVICES[0].id);
 
   const activeService = SERVICES.find((s) => s.id === selectedService) || SERVICES[0];
 

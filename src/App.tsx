@@ -1,115 +1,163 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Sectors } from './components/Sectors';
-import { Services } from './components/Services';
-import { Portfolio } from './components/Portfolio';
-import { BeforeAfterSlider } from './components/BeforeAfterSlider';
-import { ProjectsMap } from './components/ProjectsMap';
-import { Process } from './components/Process';
-import { Testimonials } from './components/Testimonials';
-import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { WhatsAppWidget } from './components/WhatsAppWidget';
 import { BrochureModal } from './components/BrochureModal';
 
+// Separate Page Screens
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { SectorsPage } from './pages/SectorsPage';
+import { DisciplinesPage } from './pages/DisciplinesPage';
+import { WorkPage } from './pages/WorkPage';
+import { TransformationsPage } from './pages/TransformationsPage';
+import { MapPage } from './pages/MapPage';
+import { WorkflowPage } from './pages/WorkflowPage';
+import { ContactPage } from './pages/ContactPage';
+
+import { PageId } from './types/navigation';
+
 export default function App() {
-  const [activeSection, setActiveSection] = useState('hero');
-  const [consultationServiceId, setConsultationServiceId] = useState<string | undefined>();
-  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
+  // Resolve initial page from URL path, hash, or query parameter
+  const getInitialPage = (): PageId => {
+    if (typeof window === 'undefined') return 'home';
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = [
-        'hero',
-        'about',
-        'sectors',
-        'services',
-        'portfolio',
-        'transformations',
-        'map',
-        'process',
-        'testimonials',
-        'contact'
-      ];
-      const scrollPosition = window.scrollY + 200;
+    const path = window.location.pathname.replace(/^\/+/, '').toLowerCase();
+    const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+    const query = new URLSearchParams(window.location.search).get('page')?.toLowerCase();
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
+    const target = path || hash || query || 'home';
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const validPages: PageId[] = [
+      'home',
+      'about',
+      'sectors',
+      'disciplines',
+      'work',
+      'transformations',
+      'map',
+      'workflow',
+      'contact'
+    ];
 
-  const handleOpenConsultation = (serviceId?: string) => {
-    if (serviceId) {
-      setConsultationServiceId(serviceId);
+    if (validPages.includes(target as PageId)) {
+      return target as PageId;
     }
-    const contactElement = document.getElementById('contact');
-    if (contactElement) {
-      contactElement.scrollIntoView({ behavior: 'smooth' });
-    }
+
+    // Aliases
+    if (target === 'services') return 'disciplines';
+    if (target === 'portfolio') return 'work';
+    if (target === 'process') return 'workflow';
+
+    return 'home';
   };
 
-  const handleExploreServices = () => {
-    const servicesElement = document.getElementById('services');
-    if (servicesElement) {
-      servicesElement.scrollIntoView({ behavior: 'smooth' });
+  const [currentPage, setCurrentPage] = useState<PageId>(getInitialPage());
+  const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>();
+  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
+
+  // Sync with browser back / forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const page = getInitialPage();
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Central Navigation Handler: switches screen, syncs URL, and scrolls to top
+  const navigateTo = (page: PageId, options?: { serviceId?: string }) => {
+    setCurrentPage(page);
+    if (options?.serviceId) {
+      setSelectedServiceId(options.serviceId);
     }
+
+    const newPath = page === 'home' ? '/' : `/${page}`;
+    if (window.location.pathname !== newPath) {
+      window.history.pushState({ page }, '', newPath);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-[#0d0f12] text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-['Plus_Jakarta_Sans']">
-      {/* Sticky Top Navigation */}
+    <div className="min-h-screen bg-[#0d0f12] text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-['Plus_Jakarta_Sans'] flex flex-col justify-between">
+      {/* Persistent Consistent Header with Active Page Indicator */}
       <Navbar
-        onOpenConsultation={handleOpenConsultation}
+        currentPage={currentPage}
+        navigateTo={navigateTo}
         onOpenBrochure={() => setIsBrochureOpen(true)}
-        activeSection={activeSection}
       />
 
-      {/* Main Content Sections */}
-      <main>
-        <Hero
-          onOpenConsultation={handleOpenConsultation}
-          onExploreServices={handleExploreServices}
-          onOpenBrochure={() => setIsBrochureOpen(true)}
-        />
+      {/* Main Viewport: Renders the active separate page/screen */}
+      <main className="flex-1">
+        {currentPage === 'home' && (
+          <HomePage
+            navigateTo={navigateTo}
+            onOpenBrochure={() => setIsBrochureOpen(true)}
+          />
+        )}
 
-        <About />
+        {currentPage === 'about' && (
+          <AboutPage
+            navigateTo={navigateTo}
+            onOpenBrochure={() => setIsBrochureOpen(true)}
+          />
+        )}
 
-        <Sectors />
+        {currentPage === 'sectors' && (
+          <SectorsPage
+            navigateTo={navigateTo}
+          />
+        )}
 
-        <Services onOpenConsultation={handleOpenConsultation} />
+        {currentPage === 'disciplines' && (
+          <DisciplinesPage
+            initialServiceId={selectedServiceId}
+            navigateTo={navigateTo}
+            onOpenBrochure={() => setIsBrochureOpen(true)}
+          />
+        )}
 
-        <Portfolio onOpenConsultation={handleOpenConsultation} />
+        {currentPage === 'work' && (
+          <WorkPage
+            navigateTo={navigateTo}
+          />
+        )}
 
-        {/* Before & After Interactive Transformations Slider */}
-        <BeforeAfterSlider onOpenConsultation={() => handleOpenConsultation('civil-engineering')} />
+        {currentPage === 'transformations' && (
+          <TransformationsPage
+            navigateTo={navigateTo}
+          />
+        )}
 
-        {/* Interactive Ghana Project Map */}
-        <ProjectsMap onOpenConsultation={() => handleOpenConsultation()} />
+        {currentPage === 'map' && (
+          <MapPage
+            navigateTo={navigateTo}
+          />
+        )}
 
-        <Process />
+        {currentPage === 'workflow' && (
+          <WorkflowPage
+            navigateTo={navigateTo}
+          />
+        )}
 
-        <Testimonials />
-
-        <Contact initialServiceId={consultationServiceId} />
+        {currentPage === 'contact' && (
+          <ContactPage
+            initialServiceId={selectedServiceId}
+            navigateTo={navigateTo}
+            onOpenBrochure={() => setIsBrochureOpen(true)}
+          />
+        )}
       </main>
 
-      {/* Footer */}
+      {/* Persistent Consistent Footer across all pages */}
       <Footer
-        onOpenConsultation={() => handleOpenConsultation()}
+        navigateTo={navigateTo}
         onOpenBrochure={() => setIsBrochureOpen(true)}
       />
 
