@@ -56,8 +56,8 @@ export const COMPANY_INFO = {
     { label: 'LinkedIn', handle: 'Rockson Djago', url: 'https://www.linkedin.com/in/rockson-djago-204969425', icon: 'linkedin' },
   ],
   stats: [
-    { label: 'Integrated Projects', value: '180+' },
-    { label: 'Years of Synergy', value: '12+' },
+    { label: 'Integrated Projects', value: '10+' },
+    { label: 'Years of Synergy', value: '3+' },
     { label: 'Multidisciplinary Experts', value: '35+' },
     { label: 'Client Satisfaction', value: '99%' },
   ]

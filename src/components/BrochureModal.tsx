@@ -58,8 +58,8 @@ export const BrochureModal: React.FC<BrochureModalProps> = ({ isOpen, onClose })
         <p>DJAGO Design &amp; Build Collaborative operates as an integrated multidisciplinary architecture and engineering practice based in Accra, Ghana. We unite architectural vision with structural civil rigor, luxury bespoke interior design, and strategic corporate branding under a single unified methodology.</p>
 
         <div class="stats">
-          <div class="stat-item"><div class="stat-val">180+</div><div class="stat-lbl">Projects Delivered</div></div>
-          <div class="stat-item"><div class="stat-val">12+</div><div class="stat-lbl">Years of Synergy</div></div>
+          <div class="stat-item"><div class="stat-val">10+</div><div class="stat-lbl">Projects Delivered</div></div>
+          <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Years of Synergy</div></div>
           <div class="stat-item"><div class="stat-val">35+</div><div class="stat-lbl">Licensed Experts</div></div>
           <div class="stat-item"><div class="stat-val">100%</div><div class="stat-lbl">Safety Compliance</div></div>
         </div>
