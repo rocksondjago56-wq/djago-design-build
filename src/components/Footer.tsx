@@ -3,6 +3,7 @@ import { Logo } from './Logo';
 import { COMPANY_INFO } from '../data/content';
 import { Phone, Mail, MapPin, ArrowUpRight, FileText } from 'lucide-react';
 import { PageId } from '../types/navigation';
+import { SocialIcons } from './SocialIcons';
 
 interface FooterProps {
   navigateTo: (page: PageId, options?: { serviceId?: string }) => void;
@@ -42,6 +43,12 @@ export const Footer: React.FC<FooterProps> = ({ navigateTo, onOpenBrochure }) =>
                 </button>
               </div>
             )}
+
+            {/* Social Media Icons */}
+            <div className="pt-3">
+              <p className="text-[10px] font-bold text-slate-500 font-['Space_Grotesk'] uppercase tracking-widest mb-2">Follow DJAGO</p>
+              <SocialIcons variant="pill" size="sm" className="flex-wrap" />
+            </div>
           </div>
 
           {/* Core Pillars / Screens */}
@@ -184,6 +191,7 @@ export const Footer: React.FC<FooterProps> = ({ navigateTo, onOpenBrochure }) =>
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>© {new Date().getFullYear()} DJAGO Design &amp; Build Ltd. All rights reserved.</p>
+          <SocialIcons variant="ghost" size="sm" className="gap-0.5" />
           <p className="font-['Space_Grotesk']">
             Designed &amp; Engineered in Accra, Ghana • <strong className="text-amber-400">DJAGO</strong>
           </p>

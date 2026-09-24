@@ -50,6 +50,12 @@ export const COMPANY_INFO = {
   phone: '0506471139 / 0599793141',
   email: 'info@djagodesignbuild.com',
   workingHours: 'Mon - Fri: 8:00 AM - 5:00 PM GMT',
+  social: [
+    { label: 'Instagram', handle: '@djago_designbuild', url: 'https://instagram.com/djago_designbuild', icon: 'instagram' },
+    { label: 'Facebook', handle: 'DJAGO Design & Build', url: 'https://facebook.com/djagodesignbuild', icon: 'facebook' },
+    { label: 'LinkedIn', handle: 'DJAGO Design & Build', url: 'https://linkedin.com/company/djago-design-build', icon: 'linkedin' },
+    { label: 'TikTok', handle: '@djago.build', url: 'https://tiktok.com/@djago.build', icon: 'tiktok' },
+  ],
   stats: [
     { label: 'Integrated Projects', value: '180+' },
     { label: 'Years of Synergy', value: '12+' },

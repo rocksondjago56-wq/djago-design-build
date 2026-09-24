@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SERVICES, COMPANY_INFO } from '../data/content';
 import { ArrowRight, ShieldCheck, CheckCircle2, Building2, Paintbrush, Compass, Sparkles, ChevronDown, FileText } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedCounter';
+import { SocialIcons } from './SocialIcons';
 
 interface HeroProps {
   onOpenConsultation: (serviceId?: string) => void;
@@ -30,6 +31,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-amber-500/10 blur-[140px] rounded-full pointer-events-none animate-pulse-glow" />
       <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-yellow-600/10 blur-[120px] rounded-full pointer-events-none animate-float-slow" />
       <div className="absolute bottom-10 left-10 w-[240px] h-[240px] bg-amber-600/10 blur-[100px] rounded-full pointer-events-none animate-float-delayed" />
+
+      {/* ── Vertical Social Sidebar — desktop only ── */}
+      <div className="hidden xl:flex flex-col items-center gap-3 absolute left-4 top-1/2 -translate-y-1/2 z-20">
+        <div className="w-px h-10 bg-gradient-to-b from-transparent to-slate-700" />
+        <SocialIcons direction="column" variant="pill" size="sm" />
+        <div className="w-px h-10 bg-gradient-to-b from-slate-700 to-transparent" />
+      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
         
@@ -100,6 +108,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
                   <span>Capabilities Deck</span>
                 </button>
               )}
+            </div>
+
+            {/* Social Follow Row */}
+            <div className="mt-6 flex flex-wrap items-center gap-3 justify-center md:justify-start">
+              <span className="text-[10px] text-slate-500 font-['Space_Grotesk'] uppercase tracking-widest font-semibold">Follow Us</span>
+              <div className="w-px h-3 bg-slate-700" />
+              <SocialIcons variant="pill" size="sm" className="gap-1" />
             </div>
 
             {/* Trust Badges with Animated Counters */}
