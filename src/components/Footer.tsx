@@ -1,13 +1,14 @@
 import React from 'react';
 import { Logo } from './Logo';
 import { COMPANY_INFO } from '../data/content';
-import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUpRight, FileText } from 'lucide-react';
 
 interface FooterProps {
   onOpenConsultation: () => void;
+  onOpenBrochure?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onOpenBrochure }) => {
   return (
     <footer className="bg-[#08090c] text-slate-400 border-t border-slate-800/80 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,11 +19,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
           <div className="lg:col-span-2 space-y-4">
             <Logo size="md" />
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm mt-4">
-              <strong>DJAGO Design & Build</strong> is Ghana’s premier multidisciplinary firm uniting Graphic Design & Branding, Civil Engineering, and Interior Design under one executive standard.
+              <strong>DJAGO Design &amp; Build</strong> is Ghana’s premier multidisciplinary firm uniting Graphic Design &amp; Branding, Civil Engineering, and Interior Design under one executive standard.
             </p>
             <div className="text-xs text-amber-400 font-['Space_Grotesk'] font-bold">
               {COMPANY_INFO.slogan}
             </div>
+            {onOpenBrochure && (
+              <div className="pt-2">
+                <button
+                  onClick={onOpenBrochure}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-amber-300 text-xs font-semibold font-['Space_Grotesk'] transition-all cursor-pointer"
+                >
+                  <FileText className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Download Corporate Capabilities Deck</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Core Pillars */}
@@ -33,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
             <ul className="space-y-2.5 text-xs text-slate-400 font-medium">
               <li>
                 <a href="#services" className="hover:text-amber-400 transition-colors">
-                  Graphic Design & Branding
+                  Graphic Design &amp; Branding
                 </a>
               </li>
               <li>
@@ -47,13 +59,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-amber-400 transition-colors">
-                  Turnkey Construction
+                <a href="#transformations" className="hover:text-amber-400 transition-colors">
+                  Before &amp; After Transformations
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-amber-400 transition-colors">
-                  3D Photorealistic Renderings
+                <a href="#map" className="hover:text-amber-400 transition-colors">
+                  Ghana Regional Map
                 </a>
               </li>
             </ul>
@@ -72,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
               </li>
               <li>
                 <a href="#about" className="hover:text-amber-400 transition-colors">
-                  About Us & Philosophy
+                  About Us &amp; Philosophy
                 </a>
               </li>
               <li>
@@ -115,7 +127,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
 
             <button
               onClick={onOpenConsultation}
-              className="mt-4 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold font-['Space_Grotesk'] uppercase tracking-wider rounded-lg flex items-center gap-1.5 transition-colors"
+              className="mt-4 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold font-['Space_Grotesk'] uppercase tracking-wider rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <span>Get Free Quote</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -126,9 +138,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {new Date().getFullYear()} DJAGO Design & Build Ltd. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} DJAGO Design &amp; Build Ltd. All rights reserved.</p>
           <p className="font-['Space_Grotesk']">
-            Designed & Engineered in Accra, Ghana • <strong className="text-amber-400">DJAGO</strong>
+            Designed &amp; Engineered in Accra, Ghana • <strong className="text-amber-400">DJAGO</strong>
           </p>
         </div>
 

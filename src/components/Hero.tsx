@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { SERVICES, COMPANY_INFO } from '../data/content';
-import { ArrowRight, ShieldCheck, CheckCircle2, Building2, Paintbrush, Compass, Sparkles, ChevronDown } from 'lucide-react';
+import { ArrowRight, ShieldCheck, CheckCircle2, Building2, Paintbrush, Compass, Sparkles, ChevronDown, FileText } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedCounter';
 
 interface HeroProps {
   onOpenConsultation: (serviceId?: string) => void;
   onExploreServices: () => void;
+  onOpenBrochure?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreServices }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreServices, onOpenBrochure }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   useEffect(() => {
@@ -74,21 +75,31 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
             </div>
 
             {/* Call to Actions */}
-            <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
+            <div className="mt-10 flex flex-wrap items-center gap-3 justify-center md:justify-start">
               <button
                 onClick={() => onOpenConsultation()}
-                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold font-['Space_Grotesk'] text-sm tracking-wider uppercase rounded-xl transition-all duration-300 shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 flex items-center justify-center gap-3 group hover:scale-[1.02]"
+                className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold font-['Space_Grotesk'] text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 flex items-center justify-center gap-2.5 group hover:scale-[1.02] cursor-pointer"
               >
-                <span>Book Free Project Audit</span>
+                <span>Book Project Audit</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
               </button>
 
               <button
                 onClick={onExploreServices}
-                className="w-full sm:w-auto px-8 py-4 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 hover:border-amber-500/40 font-semibold font-['Space_Grotesk'] text-sm tracking-wider uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02]"
+                className="w-full sm:w-auto px-6 py-3.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 hover:border-amber-500/40 font-semibold font-['Space_Grotesk'] text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] cursor-pointer"
               >
-                <span>Explore Disciplines</span>
+                <span>Disciplines</span>
               </button>
+
+              {onOpenBrochure && (
+                <button
+                  onClick={onOpenBrochure}
+                  className="w-full sm:w-auto px-6 py-3.5 bg-slate-900/90 hover:bg-slate-800 text-amber-400 hover:text-amber-300 border border-amber-500/30 hover:border-amber-500 font-bold font-['Space_Grotesk'] text-xs sm:text-sm tracking-wider uppercase rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] shadow-lg shadow-black/40 cursor-pointer"
+                >
+                  <FileText className="w-4 h-4 text-amber-400" />
+                  <span>Capabilities Deck</span>
+                </button>
+              )}
             </div>
 
             {/* Trust Badges with Animated Counters */}

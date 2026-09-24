@@ -5,18 +5,34 @@ import { About } from './components/About';
 import { Sectors } from './components/Sectors';
 import { Services } from './components/Services';
 import { Portfolio } from './components/Portfolio';
+import { BeforeAfterSlider } from './components/BeforeAfterSlider';
+import { ProjectsMap } from './components/ProjectsMap';
 import { Process } from './components/Process';
 import { Testimonials } from './components/Testimonials';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { WhatsAppWidget } from './components/WhatsAppWidget';
+import { BrochureModal } from './components/BrochureModal';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [consultationServiceId, setConsultationServiceId] = useState<string | undefined>();
+  const [isBrochureOpen, setIsBrochureOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'sectors', 'services', 'portfolio', 'process', 'testimonials', 'contact'];
+      const sections = [
+        'hero',
+        'about',
+        'sectors',
+        'services',
+        'portfolio',
+        'transformations',
+        'map',
+        'process',
+        'testimonials',
+        'contact'
+      ];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -58,6 +74,7 @@ export default function App() {
       {/* Sticky Top Navigation */}
       <Navbar
         onOpenConsultation={handleOpenConsultation}
+        onOpenBrochure={() => setIsBrochureOpen(true)}
         activeSection={activeSection}
       />
 
@@ -66,6 +83,7 @@ export default function App() {
         <Hero
           onOpenConsultation={handleOpenConsultation}
           onExploreServices={handleExploreServices}
+          onOpenBrochure={() => setIsBrochureOpen(true)}
         />
 
         <About />
@@ -76,6 +94,12 @@ export default function App() {
 
         <Portfolio onOpenConsultation={handleOpenConsultation} />
 
+        {/* Before & After Interactive Transformations Slider */}
+        <BeforeAfterSlider onOpenConsultation={() => handleOpenConsultation('civil-engineering')} />
+
+        {/* Interactive Ghana Project Map */}
+        <ProjectsMap onOpenConsultation={() => handleOpenConsultation()} />
+
         <Process />
 
         <Testimonials />
@@ -84,7 +108,19 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer onOpenConsultation={() => handleOpenConsultation()} />
+      <Footer
+        onOpenConsultation={() => handleOpenConsultation()}
+        onOpenBrochure={() => setIsBrochureOpen(true)}
+      />
+
+      {/* Persistent Floating WhatsApp Direct-Chat Widget */}
+      <WhatsAppWidget />
+
+      {/* Corporate Capabilities Deck / Brochure Modal */}
+      <BrochureModal
+        isOpen={isBrochureOpen}
+        onClose={() => setIsBrochureOpen(false)}
+      />
     </div>
   );
 }

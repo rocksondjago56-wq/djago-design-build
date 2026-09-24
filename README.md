@@ -19,6 +19,11 @@ Built with **React 19 + Vite 8 + Tailwind CSS v4**, deployed on **Vercel**.
 ## ✨ Features
 
 - 🎨 **Premium Dark UI** — rich amber-on-dark color palette with glassmorphism cards
+- 💬 **WhatsApp Direct-Chat Desk** — floating interactive quick-chat widget with dual phone lines and quick inquiry starters (`WhatsAppWidget.tsx`)
+- 🔄 **Before & After Transformations** — interactive draggable comparison wipe slider showcasing renovations and structural delivery (`BeforeAfterSlider.tsx`)
+- 🗺️ **Interactive Ghana Projects Map** — interactive SVG vector map with regional hubs, active development corridors, and spotlight case studies (`ProjectsMap.tsx`)
+- 📄 **Corporate Capabilities Deck** — downloadable 2024/2025 practice statement & capabilities profile with instant print/PDF document export (`BrochureModal.tsx`)
+- 🔍 **Rich SEO & Social Sharing Cards** — custom SVG architectural favicon, Open Graph, and Twitter metadata cards for WhatsApp and LinkedIn sharing
 - 🏗️ **Animated Sections** — IntersectionObserver scroll-reveal animations on every section (`AnimatedSection.tsx`)
 - 🔢 **Animated Counters** — easeOutExpo number counters for stats in the Hero (`AnimatedCounter.tsx`)
 - 🌊 **Keyframe Animations** — float, pulse-glow, shimmer, spin-slow, radar-ripple animations
@@ -48,11 +53,14 @@ Built with **React 19 + Vite 8 + Tailwind CSS v4**, deployed on **Vercel**.
 
 ```
 DJAGO/
-├── index.html                  # Vite HTML shell
+├── index.html                  # Vite HTML shell with Open Graph & Favicon
 ├── package.json                # Dependencies & scripts
 ├── tsconfig.json               # TypeScript configuration
 ├── vite.config.ts              # Vite + Tailwind + Figma plugins
 ├── vercel.json                 # Vercel SPA routing rewrite
+├── public/
+│   ├── favicon.svg             # Custom geometric D architectural emblem
+│   └── og-image.svg            # 1200x630 Open Graph social share banner
 └── src/
     ├── main.tsx                # React entry point
     ├── App.tsx                 # Root component with scroll tracking
@@ -62,15 +70,19 @@ DJAGO/
     └── components/
         ├── AnimatedSection.tsx # Scroll-reveal IntersectionObserver HOC
         ├── AnimatedCounter.tsx # easeOutExpo number counter component
-        ├── Navbar.tsx          # Sticky navigation with mobile menu
-        ├── Hero.tsx            # Hero section with service carousel
+        ├── Navbar.tsx          # Sticky navigation with mobile menu & brochure action
+        ├── Hero.tsx            # Hero section with service carousel & CTA buttons
         ├── About.tsx           # Company philosophy & pillars
         ├── Sectors.tsx         # Market sector showcase with tabs
         ├── Services.tsx        # Service detail switcher
         ├── Portfolio.tsx       # Filterable project grid + modal
+        ├── BeforeAfterSlider.tsx # Interactive comparison slider
+        ├── ProjectsMap.tsx     # Interactive SVG Ghana project map
         ├── Process.tsx         # 4-step delivery methodology
         ├── Testimonials.tsx    # Client reviews + team showcase
         ├── Contact.tsx         # Consultation quotation form
+        ├── WhatsAppWidget.tsx  # Floating WhatsApp direct-chat desk
+        ├── BrochureModal.tsx   # Corporate profile download modal
         ├── Footer.tsx          # Site footer with links
         └── Logo.tsx            # DJAGO brand logo component
 ```

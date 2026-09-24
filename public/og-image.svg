@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0c0e" />
+      <stop offset="50%" stop-color="#12161c" />
+      <stop offset="100%" stop-color="#0a0c0e" />
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <radialGradient id="glow-1" cx="20%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow-2" cx="80%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#d97706" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-grad)" />
+  <rect width="1200" height="630" fill="url(#glow-1)" />
+  <rect width="1200" height="630" fill="url(#glow-2)" />
+
+  <!-- Architectural drafting grid lines -->
+  <g stroke="#1e242d" stroke-width="1" opacity="0.6">
+    <line x1="80" y1="0" x2="80" y2="630" />
+    <line x1="320" y1="0" x2="320" y2="630" />
+    <line x1="560" y1="0" x2="560" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="1040" y1="0" x2="1040" y2="630" />
+    <line x1="0" y1="120" x2="1200" y2="120" />
+    <line x1="0" y1="280" x2="1200" y2="280" />
+    <line x1="0" y1="440" x2="1200" y2="440" />
+  </g>
+
+  <!-- Outer Border Frame -->
+  <rect x="40" y="40" width="1120" height="550" rx="20" fill="none" stroke="#252d3a" stroke-width="2" />
+  <circle cx="40" cy="40" r="4" fill="#f59e0b" />
+  <circle cx="1160" cy="40" r="4" fill="#f59e0b" />
+  <circle cx="40" cy="590" r="4" fill="#f59e0b" />
+  <circle cx="1160" cy="590" r="4" fill="#f59e0b" />
+
+  <!-- Badge Top -->
+  <g transform="translate(100, 90)">
+    <rect width="420" height="38" rx="19" fill="#1e1b13" stroke="#f59e0b" stroke-width="1.2" />
+    <circle cx="22" cy="19" r="5" fill="#f59e0b" />
+    <text x="38" y="24" fill="#fbbf24" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="700" letter-spacing="3">
+      ACCRA, GHANA • DESIGN &amp; BUILD
+    </text>
+  </g>
+
+  <!-- Logo & Title -->
+  <g transform="translate(100, 180)">
+    <!-- Monogram Icon -->
+    <rect width="70" height="70" rx="16" fill="#181d24" stroke="#f59e0b" stroke-width="2" />
+    <path d="M22 18 L32 18 L32 52 L22 52 Z" fill="url(#amber-grad)" />
+    <path d="M32 18 L46 18 C54 18 58 24 58 35 C58 46 54 52 46 52 L32 52 L32 44 L44 44 C48 44 50 40 50 35 C50 30 48 26 44 26 L32 26 Z" fill="url(#amber-grad)" />
+
+    <!-- Brand Name -->
+    <text x="90" y="52" fill="#ffffff" font-family="'Syne', system-ui, sans-serif" font-size="54" font-weight="900" letter-spacing="4">
+      DJAGO
+    </text>
+    <text x="300" y="50" fill="#f59e0b" font-family="'Syne', system-ui, sans-serif" font-size="34" font-weight="400">
+      COLLABORATIVE
+    </text>
+  </g>
+
+  <!-- Subtitle / Tagline -->
+  <text x="100" y="300" fill="#ffffff" font-family="'Syne', system-ui, sans-serif" font-size="36" font-weight="700">
+    Architecture • Civil Engineering • Interiors • Branding
+  </text>
+  <text x="100" y="340" fill="#94a3b8" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="20">
+    Ghana's premier multidisciplinary design firm engineered for enduring excellence.
+  </text>
+
+  <!-- 3 Pillar Badges -->
+  <g transform="translate(100, 390)">
+    <!-- Pillar 1 -->
+    <rect x="0" y="0" width="300" height="60" rx="12" fill="#141820" stroke="#252d3a" stroke-width="1.5" />
+    <circle cx="25" cy="30" r="4" fill="#f59e0b" />
+    <text x="42" y="28" fill="#f8fafc" font-family="'Syne', sans-serif" font-size="15" font-weight="700">Civil &amp; Structural</text>
+    <text x="42" y="47" fill="#64748b" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">BIM Analysis &amp; High-Rise</text>
+
+    <!-- Pillar 2 -->
+    <rect x="320" y="0" width="300" height="60" rx="12" fill="#141820" stroke="#252d3a" stroke-width="1.5" />
+    <circle cx="345" cy="30" r="4" fill="#f59e0b" />
+    <text x="362" y="28" fill="#f8fafc" font-family="'Syne', sans-serif" font-size="15" font-weight="700">Luxury Interiors</text>
+    <text x="362" y="47" fill="#64748b" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Custom Millwork &amp; Fit-Out</text>
+
+    <!-- Pillar 3 -->
+    <rect x="640" y="0" width="300" height="60" rx="12" fill="#141820" stroke="#252d3a" stroke-width="1.5" />
+    <circle cx="665" cy="30" r="4" fill="#f59e0b" />
+    <text x="682" y="28" fill="#f8fafc" font-family="'Syne', sans-serif" font-size="15" font-weight="700">Brand Architecture</text>
+    <text x="682" y="47" fill="#64748b" font-family="'Plus Jakarta Sans', sans-serif" font-size="12">Visual Identity &amp; Signage</text>
+  </g>
+
+  <!-- Bottom Bar: Live Site & Contact -->
+  <g transform="translate(100, 520)">
+    <text x="0" y="0" fill="#f59e0b" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="700">
+      🌐 djago-design-build.vercel.app
+    </text>
+    <text x="360" y="0" fill="#94a3b8" font-family="'Space Grotesk', sans-serif" font-size="16">
+      📞 0506471139 / 0599793141
+    </text>
+    <text x="690" y="0" fill="#64748b" font-family="'Space Grotesk', sans-serif" font-size="16">
+      📍 No. 14 Ridge Road, North Ridge, Accra
+    </text>
+  </g>
+</svg>
