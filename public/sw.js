@@ -1,28 +1,29 @@
 /**
  * DJAGO Design & Build Collaborative — Service Worker
- * Version: djago-pwa-v1.0.0
+ * Version: djago-pwa-v2.0.0
  */
 
-const CACHE_NAME = 'djago-pwa-v1';
+const CACHE_NAME = 'djago-pwa-v2';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/manifest.webmanifest',
-  '/favicon.svg',
-  '/apple-touch-icon.png',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/icons/icon-maskable-192.png',
-  '/icons/icon-maskable-512.png',
-  '/icons/icon-192.svg',
-  '/icons/icon-512.svg'
+  '/manifest.webmanifest?v=2',
+  '/favicon.svg?v=2',
+  '/favicon-32x32.png?v=2',
+  '/apple-touch-icon.png?v=2',
+  '/icons/icon-192.png?v=2',
+  '/icons/icon-512.png?v=2',
+  '/icons/icon-maskable-192.png?v=2',
+  '/icons/icon-maskable-512.png?v=2',
+  '/icons/icon-192.svg?v=2',
+  '/icons/icon-512.svg?v=2'
 ];
 
-// Install Event: Precache core assets & skip waiting if requested
+// Install Event: Precache core assets & skip waiting immediately
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Use addAll with error resilience for each asset
       return Promise.allSettled(
         PRECACHE_ASSETS.map((url) =>
           cache.add(url).catch((err) => {
@@ -30,17 +31,17 @@ self.addEventListener('install', (event) => {
           })
         )
       );
-    }).then(() => self.skipWaiting())
+    })
   );
 });
 
-// Activate Event: Clean up outdated caches and take control
+// Activate Event: Clean up outdated caches and take control immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((name) => name.startsWith('djago-pwa-') && name !== CACHE_NAME)
+          .filter((name) => name !== CACHE_NAME)
           .map((name) => {
             console.log(`[DJAGO SW] Deleting outdated cache: ${name}`);
             return caches.delete(name);

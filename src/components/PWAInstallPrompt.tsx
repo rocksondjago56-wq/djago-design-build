@@ -117,7 +117,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({ forceShow = 
           {/* DJAGO Icon */}
           <div className="relative shrink-0">
             <img
-              src="/icons/icon-192.png"
+              src="/icons/icon-192.png?v=2"
               alt="DJAGO App Icon"
               className="w-12 h-12 rounded-xl border border-amber-500/30 object-cover shadow-md shadow-amber-500/10"
             />
@@ -199,7 +199,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({ forceShow = 
 
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="/icons/icon-192.png"
+                src="/icons/icon-192.png?v=2"
                 alt="DJAGO"
                 className="w-12 h-12 rounded-2xl border border-amber-500/30"
               />

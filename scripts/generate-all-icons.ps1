@@ -216,6 +216,17 @@ Write-Host "Updated public/favicon.svg"
 [System.IO.File]::WriteAllText((Join-Path $iconsDir "icon-192.svg"), $svgFavicon)
 [System.IO.File]::WriteAllText((Join-Path $iconsDir "icon-512.svg"), $svgFavicon)
 
+# Generate maskable SVGs centered inside safe zone on solid dark brand background
+$svgMaskable = @"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" fill="#0d0f12" />
+  <image href="data:image/png;base64,$base64Emblem" x="77" y="77" width="358" height="358" preserveAspectRatio="xMidYMid meet" />
+</svg>
+"@
+[System.IO.File]::WriteAllText((Join-Path $iconsDir "icon-maskable-192.svg"), $svgMaskable)
+[System.IO.File]::WriteAllText((Join-Path $iconsDir "icon-maskable-512.svg"), $svgMaskable)
+Write-Host "Updated public/icons/icon-maskable-192.svg and icon-maskable-512.svg"
+
 # Clean up
 $fav16.Dispose()
 $fav32.Dispose()
