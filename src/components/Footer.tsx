@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ navigateTo, onOpenBrochure }) =>
               className="outline-none cursor-pointer flex items-center text-left"
               aria-label="DJAGO Home"
             >
-              <Logo size="md" />
+              <Logo size="md" layout="stacked" />
             </button>
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm mt-4">
               <strong>DJAGO Design &amp; Build</strong> is Ghana’s premier multidisciplinary firm uniting Graphic Design &amp; Branding, Civil Engineering, and Interior Design under one executive standard.
