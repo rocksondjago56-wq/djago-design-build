@@ -71,24 +71,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
     },
     {
       page: 'map' as PageId,
-      label: 'Ghana Map',
-      desc: 'Architectural footprint across 8 major cities',
+      label: 'Ghana Project Map',
+      desc: 'Project footprint across all 16 administrative capital regions',
       icon: Globe,
-      badge: 'National'
+      badge: '16 Regions'
     },
     {
       page: 'workflow' as PageId,
-      label: 'Workflow',
-      desc: '6-stage design & construction methodology',
+      label: 'Our Workflow',
+      desc: '6-stage design & construction delivery methodology',
       icon: GitBranch,
       badge: 'Process'
-    },
-    {
-      page: 'work' as PageId,
-      label: 'All Portfolio Works',
-      desc: 'Filterable commercial, residential & civic archives',
-      icon: LayoutGrid,
-      badge: 'Archive'
     }
   ];
 
@@ -192,30 +185,80 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
               onMouseLeave={handleMouseLeaveWork}
               className="relative"
             >
-              <button
-                onClick={() => setDesktopWorkOpen(!desktopWorkOpen)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                  isWorkActive
-                    ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 font-bold scale-[1.02]'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
-                }`}
-                aria-haspopup="true"
-                aria-expanded={desktopWorkOpen}
-              >
-                <span>Work</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${desktopWorkOpen ? 'rotate-180' : ''}`} />
-              </button>
+              {/* Clicking navigates to Portfolio Work; chevron toggles dropdown */}
+              <div className={`flex items-center rounded-full transition-all duration-200 ${
+                isWorkActive
+                  ? 'bg-amber-500 shadow-md shadow-amber-500/25 scale-[1.02]'
+                  : 'hover:bg-slate-800/60'
+              }`}>
+                <button
+                  onClick={() => handleNavigate('work')}
+                  className={`pl-3.5 pr-1.5 py-1.5 text-xs font-semibold font-['Space_Grotesk'] uppercase tracking-wider cursor-pointer ${
+                    isWorkActive ? 'text-slate-950 font-bold' : 'text-slate-300 hover:text-white'
+                  }`}
+                  aria-label="Portfolio Work"
+                >
+                  Work
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setDesktopWorkOpen(!desktopWorkOpen); }}
+                  className={`pr-2.5 py-1.5 cursor-pointer ${
+                    isWorkActive ? 'text-slate-950' : 'text-slate-400 hover:text-amber-400'
+                  }`}
+                  aria-haspopup="true"
+                  aria-expanded={desktopWorkOpen}
+                  aria-label="Work subpages"
+                >
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${desktopWorkOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
 
-              {/* Architectural Minimal Dropdown Panel */}
+              {/* Dropdown Panel — Portfolio Work as parent header + subpages */}
               {desktopWorkOpen && (
-                <div 
+                <div
                   className="absolute top-full left-0 mt-2 w-80 rounded-2xl bg-[#0f131a]/98 backdrop-blur-2xl border border-slate-800 shadow-2xl p-2 z-50 animate-scale-in"
                   style={{ transformOrigin: 'top left' }}
                 >
-                  {/* Subtle Top Architectural Accent Bar */}
-                  <div className="px-3 pt-2 pb-1 text-[10px] font-bold font-['Space_Grotesk'] uppercase tracking-widest text-slate-500 flex items-center justify-between border-b border-slate-800/80 mb-1.5">
-                    <span>PORTFOLIO SECTIONS</span>
-                    <span className="text-amber-500 font-mono">01 - 04</span>
+                  {/* Parent: Portfolio Work (main page) */}
+                  <button
+                    onClick={() => handleNavigate('work')}
+                    className={`w-full p-3 rounded-xl text-left flex items-center gap-3 transition-all cursor-pointer group mb-1 ${
+                      currentPage === 'work'
+                        ? 'bg-amber-500 text-slate-950'
+                        : 'bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20'
+                    }`}
+                  >
+                    <div className={`p-2 rounded-lg shrink-0 ${
+                      currentPage === 'work' ? 'bg-slate-950/20' : 'bg-amber-500/20'
+                    }`}>
+                      <LayoutGrid className={`w-4 h-4 ${ currentPage === 'work' ? 'text-slate-950' : 'text-amber-400' }`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`font-extrabold text-xs font-['Space_Grotesk'] uppercase tracking-wider ${
+                          currentPage === 'work' ? 'text-slate-950' : 'text-amber-300'
+                        }`}>
+                          Portfolio Work
+                        </span>
+                        <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded shrink-0 ${
+                          currentPage === 'work' ? 'bg-slate-950/20 text-slate-950' : 'bg-amber-500/20 text-amber-400'
+                        }`}>
+                          Main
+                        </span>
+                      </div>
+                      <p className={`text-[11px] truncate mt-0.5 leading-tight ${
+                        currentPage === 'work' ? 'text-slate-900' : 'text-slate-400'
+                      }`}>
+                        All commercial, residential & civic project archives
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Subpages Divider */}
+                  <div className="px-3 py-1.5 text-[10px] font-bold font-['Space_Grotesk'] uppercase tracking-widest text-slate-500 flex items-center gap-2 border-t border-slate-800/80 mt-1 mb-1">
+                    <span>Portfolio Sub-Pages</span>
+                    <div className="flex-1 border-t border-slate-800/60" />
+                    <span className="text-amber-500 font-mono">3</span>
                   </div>
 
                   <div className="space-y-1">
@@ -228,30 +271,36 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
                           onClick={() => handleNavigate(item.page)}
                           className={`w-full p-2.5 rounded-xl text-left flex items-start gap-3 transition-all duration-200 cursor-pointer group ${
                             isSubActive
-                              ? 'bg-amber-500/15 border border-amber-500/40 text-amber-300'
-                              : 'hover:bg-slate-900 border border-transparent text-slate-300 hover:text-white'
+                              ? 'bg-amber-500/15 border border-amber-500/40'
+                              : 'hover:bg-slate-900 border border-transparent'
                           }`}
                         >
-                          <div className={`p-2 rounded-lg mt-0.5 transition-colors ${
-                            isSubActive
-                              ? 'bg-amber-500 text-slate-950 font-bold'
-                              : 'bg-slate-800/80 text-amber-400 group-hover:bg-amber-500/20 group-hover:text-amber-300'
-                          }`}>
-                            <Icon className="w-4 h-4" />
+                          {/* Sub-indent indicator */}
+                          <div className="flex items-center gap-2 shrink-0">
+                            <div className="w-px h-8 bg-slate-700/60 rounded-full" />
+                            <div className={`p-1.5 rounded-lg transition-colors ${
+                              isSubActive
+                                ? 'bg-amber-500 text-slate-950'
+                                : 'bg-slate-800/80 text-amber-400 group-hover:bg-amber-500/20 group-hover:text-amber-300'
+                            }`}>
+                              <Icon className="w-3.5 h-3.5" />
+                            </div>
                           </div>
 
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between">
-                              <span className="font-bold text-xs font-['Space_Grotesk'] uppercase tracking-wider text-white group-hover:text-amber-300 transition-colors">
+                              <span className={`font-bold text-xs font-['Space_Grotesk'] uppercase tracking-wider transition-colors ${
+                                isSubActive ? 'text-amber-300' : 'text-slate-300 group-hover:text-amber-300'
+                              }`}>
                                 {item.label}
                               </span>
-                              <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded ${
+                              <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded shrink-0 ${
                                 isSubActive ? 'bg-amber-500/30 text-amber-300' : 'bg-slate-800 text-slate-400'
                               }`}>
                                 {item.badge}
                               </span>
                             </div>
-                            <p className="text-[11px] text-slate-400 truncate mt-0.5 leading-tight">
+                            <p className="text-[11px] text-slate-500 truncate mt-0.5 leading-tight">
                               {item.desc}
                             </p>
                           </div>
@@ -392,50 +441,71 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
               <ChevronRight className="w-4 h-4 text-slate-500" />
             </button>
 
-            {/* WORK ACCORDION ON MOBILE */}
+            {/* WORK — Navigate directly + accordion for subpages */}
             <div className="rounded-xl border border-slate-800/80 overflow-hidden bg-slate-900/50">
-              <button
-                onClick={() => setMobileWorkExpanded(!mobileWorkExpanded)}
-                className={`w-full flex items-center justify-between p-3.5 text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer ${
-                  isWorkActive
-                    ? 'bg-amber-500/20 text-amber-300 font-bold'
-                    : 'text-slate-200 hover:text-amber-400'
-                }`}
-              >
-                <div className="flex items-center gap-2">
+              {/* Parent row: Work link + expand toggle */}
+              <div className={`flex items-center ${
+                isWorkActive ? 'bg-amber-500/20' : ''
+              }`}>
+                <button
+                  onClick={() => handleNavigate('work')}
+                  className={`flex-1 flex items-center gap-2 p-3.5 text-xs font-semibold font-['Space_Grotesk'] tracking-wider uppercase transition-all cursor-pointer text-left ${
+                    currentPage === 'work'
+                      ? 'text-amber-300 font-bold'
+                      : isWorkActive
+                        ? 'text-amber-300'
+                        : 'text-slate-200 hover:text-amber-400'
+                  }`}
+                >
+                  <LayoutGrid className="w-4 h-4 text-amber-400 shrink-0" />
                   <span>Work</span>
-                  <span className="text-[10px] text-amber-400 font-mono px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
-                    {mobileWorkExpanded ? '−' : '+'}
-                  </span>
-                </div>
-                <span className="text-xs font-mono text-slate-400">
-                  {mobileWorkExpanded ? 'Hide' : 'Expand'}
-                </span>
-              </button>
+                  {currentPage === 'work' && (
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 border border-amber-500/30 text-amber-400">
+                      Active
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => setMobileWorkExpanded(!mobileWorkExpanded)}
+                  className={`px-3.5 py-3.5 border-l border-slate-800 text-xs font-bold font-['Space_Grotesk'] cursor-pointer ${
+                    mobileWorkExpanded ? 'text-amber-400 bg-amber-500/10' : 'text-slate-400 hover:text-amber-400'
+                  }`}
+                  aria-label="Toggle Work subpages"
+                >
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileWorkExpanded ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
 
               {mobileWorkExpanded && (
-                <div className="p-2 space-y-1 bg-slate-950/80 border-t border-slate-800/60">
-                  {workSubmenuItems.map((sub) => {
-                    const isSubActive = currentPage === sub.page;
-                    const Icon = sub.icon;
-                    return (
-                      <button
-                        key={sub.page}
-                        onClick={() => handleNavigate(sub.page)}
-                        className={`w-full p-2.5 rounded-lg text-left flex items-center justify-between text-xs font-['Space_Grotesk'] transition-all ${
-                          isSubActive
-                            ? 'bg-amber-500 text-slate-950 font-bold'
-                            : 'text-slate-300 hover:bg-slate-900 hover:text-amber-300'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <Icon className="w-3.5 h-3.5 text-amber-400" />
-                          <span>&rarr; {sub.label}</span>
-                        </div>
-                        <span className="text-[10px] opacity-75">{sub.badge}</span>
-                      </button>
-                    );
-                  })}
+                <div className="bg-slate-950/80 border-t border-slate-800/60">
+                  {/* Sub-pages label */}
+                  <div className="px-4 py-2 text-[10px] font-bold text-slate-500 font-['Space_Grotesk'] uppercase tracking-widest flex items-center gap-2">
+                    <span>Portfolio Sub-Pages</span>
+                  </div>
+                  <div className="px-2 pb-2 space-y-1">
+                    {workSubmenuItems.map((sub) => {
+                      const isSubActive = currentPage === sub.page;
+                      const Icon = sub.icon;
+                      return (
+                        <button
+                          key={sub.page}
+                          onClick={() => handleNavigate(sub.page)}
+                          className={`w-full p-2.5 rounded-lg text-left flex items-center justify-between text-xs font-['Space_Grotesk'] transition-all cursor-pointer ${
+                            isSubActive
+                              ? 'bg-amber-500 text-slate-950 font-bold'
+                              : 'text-slate-300 hover:bg-slate-900 hover:text-amber-300'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className="w-px h-4 bg-slate-700 rounded-full shrink-0" />
+                            <Icon className={`w-3.5 h-3.5 shrink-0 ${isSubActive ? 'text-slate-950' : 'text-amber-400'}`} />
+                            <span>{sub.label}</span>
+                          </div>
+                          <span className={`text-[10px] font-mono ${ isSubActive ? 'text-slate-950 opacity-70' : 'text-slate-500' }`}>{sub.badge}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>
