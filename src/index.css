@@ -6,6 +6,16 @@
     --font-heading: 'Syne', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
     --font-accent: 'Space Grotesk', sans-serif;
+
+    /* DJAGO Official Metallic Palette (Matched to Monogram & Lockups) */
+    --color-djago-gold-light: #fef08a;
+    --color-djago-gold: #f59e0b;
+    --color-djago-gold-dark: #b45309;
+    --color-djago-chrome-light: #ffffff;
+    --color-djago-chrome: #cbd5e1;
+    --color-djago-chrome-dark: #64748b;
+    --color-djago-bg-dark: #0d0f12;
+    --color-djago-bg-card: #12151c;
   }
 
   body {
@@ -29,7 +39,7 @@
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #eab308;
+  background: #f59e0b;
 }
 
 /* Custom Animations & Micro-interactions */
@@ -80,18 +90,6 @@
   }
 }
 
-@keyframes gradient-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 @keyframes radar-ripple {
   0% {
     transform: scale(0.9);
@@ -128,7 +126,7 @@
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.15) 50%,
+    rgba(245, 158, 11, 0.25) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   background-size: 200% 100%;
@@ -139,11 +137,12 @@
   animation: radar-ripple 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
+/* Glassmorphism & Gold Theme Utilities matching DJAGO Logo */
 .glass-card {
-  background: rgba(18, 22, 29, 0.7);
+  background: rgba(18, 21, 28, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.15);
 }
 
 .glass-card-hover {
@@ -152,6 +151,45 @@
 
 .glass-card-hover:hover {
   transform: translateY(-4px);
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 12px 30px -10px rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 12px 30px -10px rgba(245, 158, 11, 0.2);
+}
+
+/* Metallic Text Gradients */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold-chrome {
+  background: linear-gradient(135deg, #ffffff 0%, #fde047 35%, #f59e0b 70%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-chrome {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Metallic Badge & Border Styles */
+.badge-gold-metallic {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(180, 83, 9, 0.2) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fde047;
+}
+
+.btn-gold-primary {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #0b0d10;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.25);
+  transition: all 0.25s ease-in-out;
+}
+
+.btn-gold-primary:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.4);
+  transform: translateY(-1px);
 }

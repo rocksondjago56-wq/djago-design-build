@@ -128,7 +128,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           },
           body: JSON.stringify({
             from: 'DJAGO Inquiries <onboarding@resend.dev>',
-            to: ['info@djagodesignbuild.com', 'rocksondjago56@gmail.com'],
+            to: ['Djagodesignbuild@gmail.com', 'rocksondjago56@gmail.com'],
             subject: `[${inquiryId}] New Consultation Request: ${sanitizedData.servicePillar} - ${sanitizedData.fullName}`,
             html: `
               <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0d0f12; color: #f1f5f9; padding: 24px; border-radius: 12px; border: 1px solid #d97706;">

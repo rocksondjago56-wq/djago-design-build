@@ -102,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
               <Phone className="w-3.5 h-3.5 text-amber-500" />
               <span>{COMPANY_INFO.phone}</span>
             </a>
-            <a href="mailto:info@djagodesignbuild.com" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
+            <a href="mailto:Djagodesignbuild@gmail.com" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
               <Mail className="w-3.5 h-3.5 text-amber-500" />
               <span>{COMPANY_INFO.email}</span>
             </a>

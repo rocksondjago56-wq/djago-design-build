@@ -48,7 +48,7 @@ export const COMPANY_INFO = {
   slogan: 'Collaborative Design • People-First Architecture • Engineering Excellence',
   address: 'No. 14 Ridge Road, North Ridge, Accra, Ghana',
   phone: '0506471139 / 0599793141',
-  email: 'info@djagodesignbuild.com',
+  email: 'Djagodesignbuild@gmail.com',
   workingHours: 'Mon - Fri: 8:00 AM - 5:00 PM GMT',
   social: [
     { label: 'Instagram', handle: '@mr.djago', url: 'https://www.instagram.com/mr.djago', icon: 'instagram' },
