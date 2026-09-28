@@ -454,18 +454,18 @@ export interface GhanaCityMarker {
 
 export const GHANA_MAP_DATA = {
   heading: 'DESIGNING ACROSS GHANA',
-  supportingText: 'From concept to construction, DJAGO creates design solutions that respond to place, people and purpose.',
+  supportingText: 'From concept to construction, DJAGO creates turnkey architectural, civil engineering, and interior design solutions across all 16 administrative capital regions of Ghana.',
   stats: [
     { label: 'PROJECTS ACROSS GHANA', value: '180+' },
-    { label: 'CITIES', value: '8 Cities' },
-    { label: 'DISCIPLINES', value: '5 Disciplines' },
-    { label: 'YEARS OF EXPERIENCE', value: '12+ Years' }
+    { label: 'REGIONAL HUBS', value: '16 Capital Regions' },
+    { label: 'DISCIPLINES', value: '5 Executive Pillars' },
+    { label: 'EXPERIENCE', value: '12+ Years' }
   ],
   cities: [
     {
       id: 'accra',
       name: 'Accra',
-      region: 'Greater Accra',
+      region: 'Greater Accra Region',
       coords: { x: 67, y: 81 },
       latitude: '5.6037° N',
       longitude: '0.1870° W',
@@ -474,7 +474,7 @@ export const GHANA_MAP_DATA = {
         name: 'Apex Financial Center & Ridge Penthouse',
         type: 'Commercial High-Rise & Luxury Interiors',
         thumbnail: 'https://images.unsplash.com/photo-1527335988388-b40ee248d80c?w=800&auto=format&fit=crop&q=80',
-        description: '14-storey reinforced concrete core framing, facade structural engineering, and executive acoustic interiors in North Ridge.',
+        description: '14-storey reinforced concrete core framing, facade structural engineering, and executive acoustic interiors in North Ridge, Accra.',
         year: '2023 - 2024',
         disciplines: ['Civil Engineering', 'Interior Design', 'Branding']
       }
@@ -488,17 +488,17 @@ export const GHANA_MAP_DATA = {
       longitude: '1.6244° W',
       projectCount: '28+ Delivered',
       project: {
-        name: 'Ashanti STEM Research Facility',
+        name: 'Ashanti STEM Research Facility & KNUST Corridor',
         type: 'Higher Education & Structural Engineering',
         thumbnail: 'https://images.unsplash.com/photo-1568025848823-86404cd04ad1?w=800&auto=format&fit=crop&q=80',
-        description: 'Multi-tiered structural engineering, research laboratories, and passive cooling architectural design along the KNUST corridor.',
+        description: 'Multi-tiered structural engineering, research laboratories, and passive cooling architectural design along the KNUST corridor in Kumasi.',
         year: '2023',
         disciplines: ['Architecture', 'Civil Engineering']
       }
     },
     {
       id: 'takoradi',
-      name: 'Takoradi',
+      name: 'Sekondi-Takoradi',
       region: 'Western Region',
       coords: { x: 33, y: 86 },
       latitude: '4.8872° N',
@@ -508,7 +508,7 @@ export const GHANA_MAP_DATA = {
         name: 'Atlantic Maritime Logistics Complex',
         type: 'Industrial Civil & Marine Grade Infrastructure',
         thumbnail: 'https://images.unsplash.com/photo-1565626424178-c699f6601afd?w=800&auto=format&fit=crop&q=80',
-        description: 'Heavy portal frame warehousing, coastal soil remediation, and marine-grade reinforced concrete pavement for shipping logistics.',
+        description: 'Heavy portal frame warehousing, coastal soil remediation, and marine-grade reinforced concrete pavement for shipping logistics in Takoradi.',
         year: '2022',
         disciplines: ['Civil Engineering', 'Turnkey Construction']
       }
@@ -522,46 +522,12 @@ export const GHANA_MAP_DATA = {
       longitude: '1.2466° W',
       projectCount: '12+ Delivered',
       project: {
-        name: 'Central Heritage Cultural Center',
-        type: 'Civic Architecture & Heritage Preservation',
+        name: 'Central Heritage Cultural Pavilion & Amphitheater',
+        type: 'Civic Architecture & Coastal Preservation',
         thumbnail: 'https://images.unsplash.com/photo-1763485956292-7b9bed7b3c10?w=800&auto=format&fit=crop&q=80',
-        description: 'Civic landmark uniting indigenous timber construction with climate-resilient open-air amphitheater design.',
+        description: 'Civic landmark uniting indigenous timber construction with climate-resilient open-air amphitheater design in Cape Coast.',
         year: '2021',
         disciplines: ['Architecture', 'Branding & Wayfinding']
-      }
-    },
-    {
-      id: 'tamale',
-      name: 'Tamale',
-      region: 'Northern Region',
-      coords: { x: 52, y: 26 },
-      latitude: '9.4008° N',
-      longitude: '0.8393° W',
-      projectCount: '8+ Delivered',
-      project: {
-        name: 'Savannah Renewable Logistics Enclave',
-        type: 'Sustainable Civic Infrastructure',
-        thumbnail: 'https://images.unsplash.com/photo-1609605348579-3123e3d40eb8?w=800&auto=format&fit=crop&q=80',
-        description: 'Passive solar shaded administrative facilities and sub-Sahelian water capture systems engineered for climate resilience.',
-        year: '2024',
-        disciplines: ['Civil Engineering', 'Architecture']
-      }
-    },
-    {
-      id: 'ho',
-      name: 'Ho',
-      region: 'Volta Region',
-      coords: { x: 79, y: 64 },
-      latitude: '6.6111° N',
-      longitude: '0.4786° E',
-      projectCount: '10+ Delivered',
-      project: {
-        name: 'Volta Mountain Eco-Resort & Spa',
-        type: 'Hospitality Architecture & Interiors',
-        thumbnail: 'https://images.unsplash.com/photo-1760072513367-55182245e76c?w=800&auto=format&fit=crop&q=80',
-        description: 'Topographical stepped villa architecture nestled in mountain slopes with panoramic ridge-line glass facades.',
-        year: '2023',
-        disciplines: ['Architecture', 'Interior Design']
       }
     },
     {
@@ -573,12 +539,46 @@ export const GHANA_MAP_DATA = {
       longitude: '0.2592° W',
       projectCount: '11+ Delivered',
       project: {
-        name: 'Eastern Wellness & Specialist Clinic',
+        name: 'Eastern Specialist Healthcare & Wellness Clinic',
         type: 'Healthcare Spatial Design & MEP',
         thumbnail: 'https://images.unsplash.com/photo-1763485956292-7b9bed7b3c10?w=800&auto=format&fit=crop&q=80',
-        description: 'Acoustic medical consulting suites, sterile MEP ventilation planning, and human-centric natural lighting courtyards.',
+        description: 'Acoustic medical consulting suites, sterile MEP ventilation planning, and human-centric natural lighting courtyards in Koforidua.',
         year: '2023',
         disciplines: ['Civil MEP', 'Interior Design']
+      }
+    },
+    {
+      id: 'ho',
+      name: 'Ho',
+      region: 'Volta Region',
+      coords: { x: 79, y: 64 },
+      latitude: '6.6111° N',
+      longitude: '0.4786° E',
+      projectCount: '10+ Delivered',
+      project: {
+        name: 'Volta Ridge Eco-Resort & Wellness Spa',
+        type: 'Hospitality Architecture & Interiors',
+        thumbnail: 'https://images.unsplash.com/photo-1760072513367-55182245e76c?w=800&auto=format&fit=crop&q=80',
+        description: 'Topographical stepped villa architecture nestled in mountain slopes with panoramic ridge-line glass facades in Ho.',
+        year: '2023',
+        disciplines: ['Architecture', 'Interior Design']
+      }
+    },
+    {
+      id: 'tamale',
+      name: 'Tamale',
+      region: 'Northern Region',
+      coords: { x: 52, y: 26 },
+      latitude: '9.4008° N',
+      longitude: '0.8393° W',
+      projectCount: '8+ Delivered',
+      project: {
+        name: 'Savannah Renewable Solar Energy Hub',
+        type: 'Sustainable Civic Infrastructure',
+        thumbnail: 'https://images.unsplash.com/photo-1609605348579-3123e3d40eb8?w=800&auto=format&fit=crop&q=80',
+        description: 'Passive solar shaded administrative facilities and sub-Sahelian water capture systems engineered for climate resilience in Tamale.',
+        year: '2024',
+        disciplines: ['Civil Engineering', 'Architecture']
       }
     },
     {
@@ -593,9 +593,145 @@ export const GHANA_MAP_DATA = {
         name: 'Bono Agro-Industrial Innovation Center',
         type: 'Agricultural Processing & Civil Works',
         thumbnail: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?w=800&auto=format&fit=crop&q=80',
-        description: 'Structural steel agro-processing warehouse, reinforced vehicular ramps, and environmental drainage infrastructure.',
+        description: 'Structural steel agro-processing warehouse, reinforced vehicular ramps, and environmental drainage infrastructure in Sunyani.',
         year: '2024',
         disciplines: ['Civil Engineering', 'Structural Design']
+      }
+    },
+    {
+      id: 'techiman',
+      name: 'Techiman',
+      region: 'Bono East Region',
+      coords: { x: 46, y: 44 },
+      latitude: '7.5833° N',
+      longitude: '1.9333° W',
+      projectCount: '7+ Delivered',
+      project: {
+        name: 'Techiman Commercial Logistics & Produce Terminal',
+        type: 'Logistics Hub & Heavy Pavement Civil Works',
+        thumbnail: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop&q=80',
+        description: 'Multi-acre commercial produce hub, heavy duty concrete pavement, and solar-powered cold chain storage in Techiman.',
+        year: '2023',
+        disciplines: ['Civil Engineering', 'Master Planning']
+      }
+    },
+    {
+      id: 'goaso',
+      name: 'Goaso',
+      region: 'Ahafo Region',
+      coords: { x: 28, y: 60 },
+      latitude: '6.8000° N',
+      longitude: '2.5167° W',
+      projectCount: '5+ Delivered',
+      project: {
+        name: 'Ahafo Forest Eco-Lodge & Forestry HQ',
+        type: 'Sustainable Timber Architecture & Civil Works',
+        thumbnail: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop&q=80',
+        description: 'Bio-climatic timber framework, rain-water harvesting arrays, and administrative eco-office design in Goaso.',
+        year: '2024',
+        disciplines: ['Architecture', 'Interior Design']
+      }
+    },
+    {
+      id: 'bolgatanga',
+      name: 'Bolgatanga',
+      region: 'Upper East Region',
+      coords: { x: 58, y: 10 },
+      latitude: '10.7856° N',
+      longitude: '0.8514° W',
+      projectCount: '6+ Delivered',
+      project: {
+        name: 'Bolgatanga Artisanal Craft & Trade Pavilion',
+        type: 'Civic Vernacular Architecture',
+        thumbnail: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80',
+        description: 'Thermally insulated rammed earth masonry, vaulted clay ceilings, and passive ventilation market courts in Bolgatanga.',
+        year: '2022',
+        disciplines: ['Architecture', 'Branding']
+      }
+    },
+    {
+      id: 'wa',
+      name: 'Wa',
+      region: 'Upper West Region',
+      coords: { x: 26, y: 15 },
+      latitude: '10.0601° N',
+      longitude: '2.5099° W',
+      projectCount: '5+ Delivered',
+      project: {
+        name: 'Wa Administrative Civic Center',
+        type: 'Government Civic Infrastructure & Structural Core',
+        thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80',
+        description: 'Reinforced concrete frame administrative complex, solar shade louvers, and municipal drainage channels in Wa.',
+        year: '2023',
+        disciplines: ['Civil Engineering', 'Architecture']
+      }
+    },
+    {
+      id: 'dambai',
+      name: 'Dambai',
+      region: 'Oti Region',
+      coords: { x: 74, y: 42 },
+      latitude: '8.0667° N',
+      longitude: '0.1833° E',
+      projectCount: '4+ Delivered',
+      project: {
+        name: 'Lake Volta Inland Transit Port & Ferry Facility',
+        type: 'Marine Civil Engineering & Transport Terminal',
+        thumbnail: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&auto=format&fit=crop&q=80',
+        description: 'Reinforced concrete jetty piers, passenger waiting terminal, and lakefront retaining walls engineered in Dambai.',
+        year: '2024',
+        disciplines: ['Civil Engineering', 'Structural Design']
+      }
+    },
+    {
+      id: 'damongo',
+      name: 'Damongo',
+      region: 'Savannah Region',
+      coords: { x: 38, y: 28 },
+      latitude: '9.0833° N',
+      longitude: '1.8167° W',
+      projectCount: '4+ Delivered',
+      project: {
+        name: 'Mole Ecotourism Lodge & Wildlife Research Pavilion',
+        type: 'Hospitality Architecture & Solar Infrastructure',
+        thumbnail: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&auto=format&fit=crop&q=80',
+        description: 'Off-grid solar eco-resort chalets, elevated timber boardwalks, and safari observation decks near Mole National Park.',
+        year: '2023',
+        disciplines: ['Architecture', 'Interior Design']
+      }
+    },
+    {
+      id: 'nalerigu',
+      name: 'Nalerigu',
+      region: 'North East Region',
+      coords: { x: 70, y: 16 },
+      latitude: '10.5333° N',
+      longitude: '0.3667° W',
+      projectCount: '3+ Delivered',
+      project: {
+        name: 'Nalerigu Escarpment Medical Clinic & Community Center',
+        type: 'Healthcare Infrastructure & Civil Water Works',
+        thumbnail: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&auto=format&fit=crop&q=80',
+        description: 'Rural healthcare facility, borehole water distribution tower, and climate-shielded outpatient consultation wards in Nalerigu.',
+        year: '2024',
+        disciplines: ['Civil Engineering', 'Interior Design']
+      }
+    },
+    {
+      id: 'sefwi-wiawso',
+      name: 'Sefwi Wiawso',
+      region: 'Western North Region',
+      coords: { x: 24, y: 72 },
+      latitude: '6.2000° N',
+      longitude: '2.4833° W',
+      projectCount: '5+ Delivered',
+      project: {
+        name: 'Sefwi Mining & Natural Resources Operational HQ',
+        type: 'Industrial Corporate Office & Structural Framework',
+        thumbnail: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80',
+        description: '3-storey administrative headquarters, heavy vehicle maintenance bays, and executive corporate interiors in Sefwi Wiawso.',
+        year: '2023',
+        disciplines: ['Architecture', 'Civil Engineering', 'Interior Design']
       }
     }
   ] as GhanaCityMarker[]

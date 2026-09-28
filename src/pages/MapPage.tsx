@@ -156,7 +156,7 @@ export const MapPage: React.FC<MapPageProps> = ({ navigateTo }) => {
                       <line x1="30" y1="150" x2="370" y2="150" stroke="#1e293b" strokeWidth="0.8" strokeDasharray="3,3" />
                       <line x1="30" y1="300" x2="370" y2="300" stroke="#1e293b" strokeWidth="0.8" strokeDasharray="3,3" />
 
-                      {/* 8 City Markers */}
+                      {/* 16 Regional Capital Markers */}
                       {GHANA_MAP_DATA.cities.map((city) => {
                         const isSelected = selectedCityId === city.id;
                         const cx = (city.coords.x / 100) * 400;
@@ -220,7 +220,7 @@ export const MapPage: React.FC<MapPageProps> = ({ navigateTo }) => {
                               fontSize={isSelected ? '12' : '10'}
                               fontWeight={isSelected ? 'bold' : '600'}
                               fontFamily="'Space Grotesk', sans-serif"
-                              className="transition-all group-hover:fill-amber-300 drop-shadow select-none"
+                              className="transition-all group-hover:fill-amber-300 drop-shadow select-none pointer-events-none"
                             >
                               {city.name}
                             </text>
@@ -230,25 +230,30 @@ export const MapPage: React.FC<MapPageProps> = ({ navigateTo }) => {
                     </svg>
                   </div>
 
-                  {/* 8 City Pills Selector */}
-                  <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-800">
-                    {GHANA_MAP_DATA.cities.map((city) => {
-                      const isSelected = selectedCityId === city.id;
-                      return (
-                        <button
-                          key={city.id}
-                          onClick={() => setSelectedCityId(city.id)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-['Space_Grotesk'] font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                            isSelected
-                              ? 'bg-amber-500 text-slate-950 shadow-md font-extrabold'
-                              : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
-                          }`}
-                        >
-                          <MapPin className="w-3 h-3 text-amber-500" />
-                          <span>{city.name}</span>
-                        </button>
-                      );
-                    })}
+                  {/* 16 Capital Region Quick Selector Pills */}
+                  <div className="mt-4 pt-4 border-t border-slate-800">
+                    <div className="text-[11px] font-bold text-slate-400 font-['Space_Grotesk'] uppercase tracking-wider mb-2.5">
+                      Select Administrative Capital Region ({GHANA_MAP_DATA.cities.length}):
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1 custom-scrollbar">
+                      {GHANA_MAP_DATA.cities.map((city) => {
+                        const isSelected = selectedCityId === city.id;
+                        return (
+                          <button
+                            key={city.id}
+                            onClick={() => setSelectedCityId(city.id)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-['Space_Grotesk'] transition-all cursor-pointer flex items-center gap-1.5 ${
+                              isSelected
+                                ? 'bg-amber-500 text-slate-950 font-extrabold shadow-md'
+                                : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                            }`}
+                          >
+                            <MapPin className="w-3 h-3 text-amber-500 shrink-0" />
+                            <span>{city.name}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
                 </div>
@@ -266,7 +271,7 @@ export const MapPage: React.FC<MapPageProps> = ({ navigateTo }) => {
                       <MapPin className="w-3.5 h-3.5" />
                       <span>{selectedCity.region}</span>
                     </div>
-                    <span className="text-xs font-mono text-slate-400">
+                    <span className="text-xs font-mono text-amber-400 font-bold bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
                       {selectedCity.projectCount}
                     </span>
                   </div>
@@ -320,13 +325,21 @@ export const MapPage: React.FC<MapPageProps> = ({ navigateTo }) => {
                       </div>
 
                       {/* View Project Button */}
-                      <div className="pt-3">
+                      <div className="pt-3 space-y-2">
                         <button
                           onClick={() => setModalProject(selectedCity.project)}
                           className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-amber-500 hover:text-slate-950 border border-slate-700 hover:border-amber-400 text-slate-200 text-xs font-bold font-['Space_Grotesk'] tracking-wider uppercase flex items-center justify-center gap-2 transition-all cursor-pointer"
                         >
                           <span>View Project Details</span>
                           <ExternalLink className="w-3.5 h-3.5" />
+                        </button>
+                        
+                        <button
+                          onClick={() => navigateTo('work')}
+                          className="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-300 hover:text-amber-300 text-xs font-bold font-['Space_Grotesk'] tracking-wider uppercase flex items-center justify-center gap-2 transition-all cursor-pointer"
+                        >
+                          <span>Explore All Projects Portfolio</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
@@ -356,7 +369,7 @@ export const MapPage: React.FC<MapPageProps> = ({ navigateTo }) => {
           <div className="relative w-full max-w-2xl rounded-3xl bg-[#0f131a] border border-amber-500/40 p-6 sm:p-8 shadow-2xl overflow-hidden animate-scale-in space-y-4">
             <button
               onClick={() => setModalProject(null)}
-              className="absolute top-4 right-4 p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white"
+              className="absolute top-4 right-4 p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -381,17 +394,28 @@ export const MapPage: React.FC<MapPageProps> = ({ navigateTo }) => {
               {modalProject.description}
             </p>
 
-            <div className="pt-4 flex items-center justify-between border-t border-slate-800">
+            <div className="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-800">
               <span className="text-xs text-slate-500 font-mono">Status: Verified Built</span>
-              <button
-                onClick={() => {
-                  setModalProject(null);
-                  navigateTo('contact');
-                }}
-                className="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs font-['Space_Grotesk'] tracking-wider uppercase hover:bg-amber-400"
-              >
-                Inquire About Similar Build
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    setModalProject(null);
+                    navigateTo('work');
+                  }}
+                  className="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-bold text-xs font-['Space_Grotesk'] tracking-wider uppercase hover:bg-slate-800 cursor-pointer"
+                >
+                  View Full Portfolio
+                </button>
+                <button
+                  onClick={() => {
+                    setModalProject(null);
+                    navigateTo('contact');
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs font-['Space_Grotesk'] tracking-wider uppercase hover:bg-amber-400 cursor-pointer"
+                >
+                  Inquire About Build
+                </button>
+              </div>
             </div>
           </div>
         </div>

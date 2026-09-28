@@ -150,7 +150,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigateTo, onOpenBrochure }
       <BeforeAfterSlider onOpenConsultation={() => navigateTo('contact', { serviceId: 'civil-engineering' })} />
 
       {/* 5. Interactive Ghana Projects Map Teaser */}
-      <ProjectsMap onOpenConsultation={() => navigateTo('contact')} />
+      <ProjectsMap onOpenConsultation={() => navigateTo('contact')} navigateTo={navigateTo} />
 
       {/* 6. Bottom Call to Action Screen Banner */}
       <section className="py-20 bg-gradient-to-b from-[#0d0f12] via-[#141820] to-[#0a0c0f] border-t border-slate-800 relative overflow-hidden">
