@@ -110,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
                 className="inline-flex items-center gap-1.5 text-slate-300 hover:text-amber-300 transition-colors cursor-pointer text-[11px] font-semibold font-['Space_Grotesk']"
               >
                 <FileText className="w-3 h-3 text-amber-400" />
-                <span>Download Capabilities Deck (PDF)</span>
+                <span>Download Capabilities Profile</span>
               </button>
             )}
             <span className="inline-flex items-center gap-1.5 text-amber-400 font-medium bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20 text-[11px]">
@@ -547,7 +547,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, navigateTo, onOpenB
                 className="w-full py-3 bg-slate-900 border border-amber-500/40 text-amber-300 font-bold font-['Space_Grotesk'] text-xs tracking-wider uppercase rounded-xl flex items-center justify-center gap-2"
               >
                 <FileText className="w-4 h-4 text-amber-400" />
-                <span>Download Capabilities Deck (PDF)</span>
+                <span>Download Capabilities Profile</span>
               </button>
             )}
 

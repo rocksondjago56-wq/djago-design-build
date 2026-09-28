@@ -159,6 +159,14 @@ export const Footer: React.FC<FooterProps> = ({ navigateTo, onOpenBrochure }) =>
               </li>
               <li>
                 <button
+                  onClick={() => navigateTo('insights')}
+                  className="hover:text-amber-400 transition-colors cursor-pointer text-left"
+                >
+                  Insights &amp; News
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => navigateTo('contact')}
                   className="hover:text-amber-400 transition-colors cursor-pointer text-left"
                 >

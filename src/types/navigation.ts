@@ -7,6 +7,7 @@ export type PageId =
   | 'transformations'
   | 'map'
   | 'workflow'
+  | 'insights'
   | 'contact';
 
 export interface NavigationProps {

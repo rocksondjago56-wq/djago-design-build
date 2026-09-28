@@ -16,6 +16,8 @@ import { TransformationsPage } from './pages/TransformationsPage';
 import { MapPage } from './pages/MapPage';
 import { WorkflowPage } from './pages/WorkflowPage';
 import { ContactPage } from './pages/ContactPage';
+import { InsightsPage } from './pages/InsightsPage';
+import { Analytics } from '@vercel/analytics/react';
 
 import { PageId } from './types/navigation';
 
@@ -39,6 +41,7 @@ export default function App() {
       'transformations',
       'map',
       'workflow',
+      'insights',
       'contact'
     ];
 
@@ -148,6 +151,8 @@ export default function App() {
           />
         )}
 
+        {currentPage === 'insights' && <InsightsPage navigateTo={navigateTo} />}
+
         {currentPage === 'contact' && (
           <ContactPage
             initialServiceId={selectedServiceId}
@@ -175,6 +180,7 @@ export default function App() {
       {/* Progressive Web App Status & Install Prompts */}
       <OfflineIndicator />
       <PWAInstallPrompt />
+      <Analytics />
     </div>
   );
 }
